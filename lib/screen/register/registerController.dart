@@ -42,8 +42,8 @@ class RegisterController extends GetxController{
             content: SingleChildScrollView(
               child: ListBody(
                 children: <Widget>[
-                  CommonText(text:'This number is already registered',),
-                  CommonText(text: 'Try to register using another number or try to log in with this number'),
+                  CommonText(text:'Number is already registered do Login ',),
+                  CommonText(text: ''),
                 ],
               ),
             ),

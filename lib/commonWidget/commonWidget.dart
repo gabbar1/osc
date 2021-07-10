@@ -4,6 +4,8 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:upen/screen/helper/constant.dart';
 
+import 'dateTimePickerFromTextField.dart';
+
 Widget CommonText(
     {String text,
     double fontSize = 14.00,
@@ -16,9 +18,21 @@ Widget CommonText(
   );
 }
 
+Widget CommanDateTimePicker({
+  String labelText = "",
+}) {
+  return DatePicker(
+    labelText: labelText,
+  );
+}
+
 Widget CommonTextInput(
     {String lable = "",
-    hint = "Enter Value",
+    int maxLength,
+    int minLength,
+    int length,
+    hint = "",
+    labeltext = "Enter Value",
     FontWeight lableFontStyle,
     double lableFontSize,
     lableTextColor,
@@ -41,35 +55,44 @@ Widget CommonTextInput(
       SizedBox(
         height: 5,
       ),
-      Container(
+      /*Container(
           padding: EdgeInsets.only(left: 15, right: 15, top: 5, bottom: 5),
           decoration: BoxDecoration(
               borderRadius: BorderRadius.all(
                 Radius.circular(30),
               ),
-              border: Border.all(color: Colors.blueAccent)),
-          child: TextFormField(
-            keyboardType: textInputType,
-            controller: inputController,
-            style: TextStyle(color: Constants().mainColor),
-            decoration: InputDecoration(
-              hintText: hint,
-              border: InputBorder.none,
-            ),
-            validator: (value) {
-              if (value.toString().isEmpty) {
-                return 'field required';
-                //"Please enter valid floor number";
-              } else if (value.toString().isNotEmpty && isRequired) {
-                if (RegExp(regexp).hasMatch(value.toString())) {
-                  return null;
-                } else {
-                  return errortext;
-                }
-              } else {
-                return null;
-              }
-              /* if (value.toString().isEmpty) {
+              border: Border.all(color: Colors.blue[700])),
+          child:*/
+      TextFormField(
+        maxLength: maxLength,
+        keyboardType: textInputType,
+        controller: inputController,
+        style: TextStyle(color: Constants().mainColor),
+        decoration: InputDecoration(
+          hintText: hint,
+          labelText: labeltext,
+          border: new OutlineInputBorder(
+            borderRadius: BorderRadius.circular(40.0),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderSide: const BorderSide(color: Color(0xff123374), width: 2.0),
+            borderRadius: BorderRadius.circular(25.0),
+          ),
+        ),
+        validator: (value) {
+          if (value.toString().isEmpty) {
+            return 'field required';
+            //"Please enter valid floor number";
+          } else if (value.toString().isNotEmpty && isRequired) {
+            if (RegExp(regexp).hasMatch(value.toString())) {
+              return null;
+            } else {
+              return errortext;
+            }
+          } else {
+            return null;
+          }
+          /* if (value.toString().isEmpty) {
                 return 'field required';
                 //"Please enter valid floor number";
               } else if(RegExp(regexp).hasMatch(value.toString())){
@@ -78,8 +101,8 @@ Widget CommonTextInput(
               } else{
                 return null;
               }*/
-            },
-          ))
+        },
+      ) //)
     ],
   );
 }
@@ -163,7 +186,7 @@ class CommonDatePicker extends GetxController {
   }
 }
 
-Widget CommonButton({
+Widget CommonInkWellButton({
   Function onTap,
   BuildContext context,
   String buttonText,
@@ -174,12 +197,19 @@ Widget CommonButton({
 }) {
   return InkWell(
     onTap: onTap,
+    splashColor: Colors.yellowAccent,
     child: Container(
         width: MediaQuery.of(context).size.width,
-        height: MediaQuery.of(context).size.height / 15,
+        height: MediaQuery.of(context).size.height / 10,
         decoration: BoxDecoration(
+          boxShadow: [
+            BoxShadow(
+                color: Colors.lightBlue, blurRadius: 4, offset: Offset(0, 2))
+          ],
           color: buttonColor,
-          borderRadius: BorderRadius.circular(4.0),
+          borderRadius: BorderRadius.all(
+            Radius.circular(40),
+          ),
         ),
         child: Center(
             child: CommonText(
@@ -187,5 +217,30 @@ Widget CommonButton({
                 textColor: buttonTextColor,
                 fontStyle: buttonTextStyle,
                 fontSize: buttonTextSize))),
+  );
+}
+
+Widget CommonButton({
+  Function onTap,
+  BuildContext context,
+  String buttonText,
+  Color buttonTextColor,
+  Color buttonColor,
+  Color shdowColor,
+  FontWeight buttonTextStyle,
+  double buttonTextSize = 14.00,
+}) {
+  return ElevatedButton(
+    onPressed: () {},
+    child: Text(buttonText),
+    style: ButtonStyle(
+        shadowColor: MaterialStateProperty.all(shdowColor),
+        backgroundColor: MaterialStateProperty.all(buttonColor),
+        padding: MaterialStateProperty.all(
+            EdgeInsets.symmetric(vertical: 25, horizontal: 130)),
+        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+            RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(40.0),
+                side: BorderSide(color: Color(0xff123374))))),
   );
 }

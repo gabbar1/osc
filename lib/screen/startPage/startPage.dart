@@ -13,7 +13,7 @@ class StartPage extends StatelessWidget {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Center(child: CommonText(text: "Welcome to Samaj",textColor: Colors.black,fontSize: 24)),
+          Center(child: CommonText(text: "Welcome",textColor: Colors.black,fontSize: 24)),
           SizedBox(height: MediaQuery.of(context).size.width),
           InkWell(onTap: (){
             Get.to(LoginPageView());
