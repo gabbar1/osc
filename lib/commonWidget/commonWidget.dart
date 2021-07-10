@@ -5,30 +5,33 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:upen/screen/helper/constant.dart';
+import 'package:upen/test/testView.dart';
 
 Widget CommonText(
     {String text,
-    double fontSize = 14.00,
-    Color textColor = Colors.white,
-    FontWeight fontStyle = FontWeight.normal}) {
+      double fontSize = 14.00,
+      Color textColor = Colors.white,
+      FontWeight fontStyle = FontWeight.normal}) {
   return Text(
     text,
     style:
-        TextStyle(fontSize: fontSize, color: textColor, fontWeight: fontStyle),
+    TextStyle(fontSize: fontSize, color: textColor, fontWeight: fontStyle),
   );
 }
-
+Widget TextWidget({String name}){
+  return TestView(name: name,);
+}
 Widget CommonTextInput(
     {String lable = "",
-    hint = "Enter Value",
-    FontWeight lableFontStyle,
-    double lableFontSize,
-    lableTextColor,
-    TextEditingController inputController,
-    TextInputType textInputType = TextInputType.text,
-    String regexp,
-    errortext,
-    bool isRequired = false}) {
+      hint = "Enter Value",
+      FontWeight lableFontStyle,
+      double lableFontSize,
+      lableTextColor,
+      TextEditingController inputController,
+      TextInputType textInputType = TextInputType.text,
+      String regexp,
+      errortext,
+      bool isRequired = false}) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
@@ -123,9 +126,9 @@ class CommonDatePicker extends GetxController {
                         primaryColor: Constants().mainColor,
                         accentColor: Constants().mainColor,
                         colorScheme:
-                            ColorScheme.light(primary: Constants().mainColor),
+                        ColorScheme.light(primary: Constants().mainColor),
                         buttonTheme:
-                            ButtonThemeData(textTheme: ButtonTextTheme.primary),
+                        ButtonThemeData(textTheme: ButtonTextTheme.primary),
                       ),
                       child: child,
                     );
@@ -142,7 +145,7 @@ class CommonDatePicker extends GetxController {
             },
             child: Container(
               padding:
-                  EdgeInsets.only(left: 15, right: 10, top: 11, bottom: 11),
+              EdgeInsets.only(left: 15, right: 10, top: 11, bottom: 11),
               width: MediaQuery.of(context).size.width,
               height: MediaQuery.of(context).size.height / 15,
               decoration: BoxDecoration(
@@ -237,7 +240,7 @@ Widget AppDrawer() {
               SizedBox(
                 width: 15,
               ),
-             CommonText(text: "About Us",textColor: Constants().mainColor)
+              CommonText(text: "About Us",textColor: Constants().mainColor)
             ],
           ),
           onTap: () {
