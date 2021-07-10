@@ -29,6 +29,9 @@ dependencies:
   get: ^4.1.4
   intl: ^0.17.0
   flutter_local_notifications: ^6.0.0
+  flutter_svg: ^0.22.0
+  flutter_swiper: ^1.1.6
+  cached_network_image: ^3.0.0
   flutter:
     sdk: flutter
 
@@ -46,6 +49,9 @@ dev_dependencies:
 
 # The following section is specific to Flutter.
 flutter:
+  assets:
+    - assets/
+    - assets/icons/
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
