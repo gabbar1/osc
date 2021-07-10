@@ -344,3 +344,152 @@ ImageNetworkTap(
     ),*/
   );
 }
+Widget AppDrawer() {
+  return Drawer(
+
+    child: Column(
+      // Important: Remove any padding from the ListView.
+
+      children: <Widget>[
+        DrawerHeader(
+
+          decoration: BoxDecoration(
+            color: Constants().mainColor,
+          ),
+          child: Row(
+
+            children: [
+              CircleAvatar(
+                backgroundColor: Colors.black45,
+                radius: 35,
+                child: Icon(Icons.camera_alt_outlined),
+              ),
+              SizedBox(width: 10,),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  CommonText(text: "Name"),
+                  CommonText(text: "phone"),
+                  CommonText(text: "email"),
+                ],
+              )
+            ],
+          ),
+        ),
+        InkWell(
+          child: Row(
+            children: [
+              Container(
+                height: 65,
+                width: 40,
+                padding: EdgeInsets.only(left: 20),
+                child: SvgPicture.asset("assets/icons/about.svg",color: Constants().mainColor,),
+              ),
+              SizedBox(
+                width: 15,
+              ),
+              CommonText(text: "About Us",textColor: Constants().mainColor)
+            ],
+          ),
+          onTap: () {
+
+          },
+        ),
+        Divider(),
+        InkWell(
+          child: Row(
+            children: [
+              Container(
+                height: 65,
+                width: 40,
+                padding: EdgeInsets.only(left: 20),
+                child: SvgPicture.asset("assets/icons/privacy.svg",color: Constants().mainColor,),
+              ),
+              SizedBox(
+                width: 15,
+              ),
+              CommonText(text: "Privacy Policy",textColor: Constants().mainColor)
+            ],
+          ),
+          onTap: () {
+
+          },
+        ),
+        Divider(),
+        InkWell(
+          child: Row(
+            children: [
+              Container(
+                height: 65,
+                width: 40,
+                padding: EdgeInsets.only(left: 20),
+                child: Icon(Icons.settings,color: Constants().mainColor,),
+              ),
+              SizedBox(
+                width: 15,
+              ),
+              CommonText(text: "Settings",textColor: Constants().mainColor)
+            ],
+          ),
+          onTap: () {
+
+          },
+        ),
+        Divider(),
+        InkWell(
+          child: Row(
+            children: [
+              Container(
+                height: 65,
+                width: 40,
+                padding: EdgeInsets.only(left: 20),
+                child: Icon(Icons.logout,color: Constants().mainColor,),
+              ),
+              SizedBox(
+                width: 15,
+              ),
+              CommonText(text: "Logout",textColor: Constants().mainColor)
+            ],
+          ),
+          onTap: () {
+
+          },
+        ),
+        Divider(),
+        Expanded(child: Align(alignment: Alignment.bottomCenter,child: Center(child: CommonText(text: "Version 1.0",textColor: Constants().mainColor),),))
+      ],
+    ),
+  );
+}
+
+ImageNetworkTap(
+    {String imagePathAPI,
+      double width,
+      double height,
+      BoxFit fit,
+      Function ontap}) {
+  return GestureDetector(
+    onTap: () {
+      ontap();
+    },
+    child: CachedNetworkImage(
+        imageUrl: imagePathAPI,
+        progressIndicatorBuilder: (context, url, downloadProgress) =>
+            LinearProgressIndicator(
+              value: downloadProgress.progress,
+              backgroundColor: Colors.transparent,
+            ),
+        errorWidget: (context, url, error) => Icon(Icons.error_outline),
+        width: width,
+        height: height,
+        fit: fit),
+
+    /*Image.network(
+      imagePathAPI,
+      width: width,
+      height: height,
+      fit: fit,
+    ),*/
+  );
+}
