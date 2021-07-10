@@ -14,7 +14,8 @@ class RegisterController extends GetxController{
   TextEditingController nameController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
   TextEditingController otpController = TextEditingController();
-  String phoneNo,verficationId,smsCode,dob,email,password,name;
+  TextEditingController referalCodeController = TextEditingController();
+  String phoneNo,referalCode,verficationId,smsCode,dob,email,password,name;
   bool codeSent = false;
 
   Future<void> register({String name,email,phone,dob})async{
@@ -24,6 +25,7 @@ class RegisterController extends GetxController{
     this.phoneNo = phone;
     this.email = email;
     this.dob = dob;
+    this.referalCode=referalCode;
     DocumentSnapshot  getSpecificData = await FirebaseFirestore.instance.collection('user_details').doc(phone).get();
     print("-----------------NotFound-------------------");
     print(getSpecificData.data());
@@ -136,9 +138,17 @@ class RegisterController extends GetxController{
       "name" : name,
       "email" : email,
       "phone_number" : phoneNo,
-      "dob" : dob
+      "dob" : dob,
+      "refered_By":referalCode,
     });
 
+  }
+
+  void clearRecord(){
+    emailController.clear();
+    nameController.clear();
+    phoneController.clear();
+    referalCodeController.clear();
   }
 }
 

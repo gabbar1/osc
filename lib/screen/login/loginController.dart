@@ -9,6 +9,7 @@ import 'package:upen/screen/register/registerPage.dart';
 
 class LoginController extends GetxController {
   TextEditingController phoneController = TextEditingController();
+  TextEditingController otpController = TextEditingController();
   String phoneNo, verficationId;
   bool codeSent = false;
 
