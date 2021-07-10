@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:upen/lib/screen/helper/constant.dart';
+import 'package:upen/screen/helper/constant.dart';
 
 Widget CommonText(
     {String text,
@@ -44,11 +44,10 @@ Widget CommonTextInput(
       Container(
           padding: EdgeInsets.only(left: 15, right: 15, top: 5, bottom: 5),
           decoration: BoxDecoration(
-            color: Colors.greenAccent[100],
-            borderRadius: BorderRadius.all(
-              Radius.circular(30),
-            ),
-          ),
+              borderRadius: BorderRadius.all(
+                Radius.circular(30),
+              ),
+              border: Border.all(color: Colors.blueAccent)),
           child: TextFormField(
             keyboardType: textInputType,
             controller: inputController,

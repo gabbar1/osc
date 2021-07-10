@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:upen/lib/commonWidget/commonWidget.dart';
-import 'package:upen/lib/screen/helper/constant.dart';
+import 'package:upen/commonWidget/commonWidget.dart';
+import 'package:upen/screen/helper/constant.dart';
 
 class DashBoardView extends StatelessWidget {
   @override

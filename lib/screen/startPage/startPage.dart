@@ -1,10 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:upen/lib/commonWidget/commonWidget.dart';
-import 'package:upen/lib/screen/helper/constant.dart';
-import 'package:upen/lib/screen/login/loginPage.dart';
-import 'package:upen/lib/screen/register/registerPage.dart';
+import 'package:upen/commonWidget/commonWidget.dart';
+import 'package:upen/screen/helper/constant.dart';
+import 'package:upen/screen/login/loginPage.dart';
+import 'package:upen/screen/register/registerPage.dart';
 
 class StartPage extends StatelessWidget {
   @override

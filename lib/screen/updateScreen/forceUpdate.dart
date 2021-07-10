@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:upen/lib/service/authservice.dart';
+import 'package:upen/service/authservice.dart';
 
 
 class ForceUpdateView extends StatelessWidget {

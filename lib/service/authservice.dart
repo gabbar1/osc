@@ -1,7 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:upen/lib/screen/dashBoard/dashBoard.dart';
-import 'package:upen/lib/screen/startPage/startPage.dart';
+import 'package:upen/screen/dashBoard/dashBoard.dart';
+import 'package:upen/screen/startPage/startPage.dart';
+
 
 
 
