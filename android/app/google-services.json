@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "636466031264",
+    "project_id": "my-osc-finance",
+    "storage_bucket": "my-osc-finance.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:636466031264:android:c32b77e1592b1ff82677c5",
+        "android_client_info": {
+          "package_name": "com.example.upen"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "636466031264-0jfuegcppgt1adb5p7922csgqoigni6f.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.upen",
+            "certificate_hash": "1576a9f5f2f4e56cfb7dc9377978c8e0b583dc81"
+          }
+        },
+        {
+          "client_id": "636466031264-bna3ekq0qous5m8f0s344d808vh037kd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAIZuKn5XuqrTmUvm0qhGrmozBY23FBQw4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "636466031264-bna3ekq0qous5m8f0s344d808vh037kd.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
