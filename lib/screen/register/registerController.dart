@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:upen/commonWidget/commonWidget.dart';
 import 'package:upen/screen/dashBoard/dashBoard.dart';
+import 'package:upen/screen/dashBoard/homeNavigator.dart';
 import 'package:upen/screen/helper/constant.dart';
 import 'registerPage.dart';
 
@@ -117,7 +118,7 @@ class RegisterController extends GetxController{
       ));
      if(!result.additionalUserInfo.isBlank){
        addUserDetails();
-       Get.offAll(DashBoardView());
+       Get.offAll(HomeNavigator());
      }
      Get.snackbar("Message", result.additionalUserInfo.isBlank.toString());
       // updateDetail(context: context);

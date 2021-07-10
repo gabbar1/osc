@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:upen/commonWidget/commonWidget.dart';
-import 'package:upen/commonWidget/dateTimePickerFromTextField.dart';
 import 'package:upen/screen/helper/constant.dart';
 
 import 'registerController.dart';
