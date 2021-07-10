@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -9,6 +10,8 @@ import 'package:intl/intl.dart';
 import 'package:upen/screen/helper/constant.dart';
 import 'package:upen/screen/startPage/startPage.dart';
 import 'package:upen/test/testView.dart';
+import 'dateTimePickerFromTextField.dart';
+
 import 'dateTimePickerFromTextField.dart';
 
 Widget CommonText(
@@ -53,6 +56,20 @@ Widget CommonTextInput(
     String regexp,
     errortext,
     bool isRequired = false}) {
+  /*int maxLength,
+      int minLength,
+      int length,
+      hint = "",
+      labeltext = "Enter Value",
+      FontWeight lableFontStyle,
+      double lableFontSize,
+      lableTextColor,
+      TextEditingController inputController,
+      TextInputType textInputType = TextInputType.text,
+      String regexp,
+      errortext,
+      bool isRequired = false}) {*/
+
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
@@ -67,6 +84,15 @@ Widget CommonTextInput(
       SizedBox(
         height: 5,
       ),
+
+      /*Container(
+          padding: EdgeInsets.only(left: 15, right: 15, top: 5, bottom: 5),
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.all(
+                Radius.circular(30),
+              ),
+              border: Border.all(color: Colors.blue[700])),
+          child:*/
       TextFormField(
         maxLength: maxLength,
         keyboardType: textInputType,
@@ -87,27 +113,17 @@ Widget CommonTextInput(
           if (value.toString().isEmpty) {
             if (isValidationRequired) {
               return 'Field required';
-            }
-            //"Please enter valid floor number";
-          } else if (value.toString().isNotEmpty && isRequired) {
-            if (RegExp(regexp).hasMatch(value.toString())) {
-              return null;
+            } else if (value.toString().isNotEmpty && isRequired) {
+              if (RegExp(regexp).hasMatch(value.toString())) {
+                return null;
+              } else {
+                return errortext;
+              }
             } else {
-              return errortext;
+              return null;
             }
-          } else {
-            return null;
           }
           return null;
-          /* if (value.toString().isEmpty) {
-                return 'field required';
-                //"Please enter valid floor number";
-              } else if(RegExp(regexp).hasMatch(value.toString())){
-
-                return errortext;
-              } else{
-                return null;
-              }*/
         },
       ) //)
     ],
