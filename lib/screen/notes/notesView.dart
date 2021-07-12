@@ -80,7 +80,7 @@ class NotesView extends StatelessWidget {
                       SizedBox(height: 20,),
                       CommanDateTimePicker(labelText: "Select Date"),
                       SizedBox(height: 20,),
-                      CommonButton(context: context,onTap: (){},buttonText: "Save")
+                      CommonButton(context: context,onPressed: (){},buttonText: "Save")
                     ],
                   ),
                 ),

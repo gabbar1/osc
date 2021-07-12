@@ -9,8 +9,11 @@ class RegisterPageView extends StatelessWidget {
   RegisterController registerController = Get.put(RegisterController());
   CommonDatePicker commonDatePicker = Get.put(CommonDatePicker());
   GlobalKey<FormState> registerFormKey = new GlobalKey<FormState>();
+
+
   @override
   Widget build(BuildContext context) {
+    registerController.clearRecord();
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -18,7 +21,7 @@ class RegisterPageView extends StatelessWidget {
         backgroundColor: Color(0xff123374),
       ),
       body: Container(
-        margin: EdgeInsets.only(top: 40, left: 15, right: 15),
+        margin: EdgeInsets.only(top: 10, left: 15, right: 15),
         child: Form(
           key: registerFormKey,
           child: SingleChildScrollView(
@@ -31,9 +34,6 @@ class RegisterPageView extends StatelessWidget {
                     lableFontSize: 20,
                     lableFontStyle: FontWeight.bold,
                     lableTextColor: Constants().mainColor),
-                SizedBox(
-                  height: 10,
-                ),
                 CommonTextInput(
                     isRequired: true,
                     textInputType: TextInputType.emailAddress,
@@ -46,35 +46,34 @@ class RegisterPageView extends StatelessWidget {
                     regexp:
                         r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+",
                     errortext: "Enter valid email"),
-                SizedBox(
-                  height: 10,
-                ),
                 CommonTextInput(
-                    textInputType: TextInputType.phone,
-                    labeltext: "Enter Phone",
-                    inputController: registerController.phoneController,
-                    maxLength:10,
-                    lableFontSize: 20,
-                    lableFontStyle: FontWeight.bold,
-                    lableTextColor: Constants().mainColor,
-                    regexp:
-                    r"^[0-9]{10}$",
-                    errortext: "Enter valid Mobile No"),
-
-                SizedBox(
-                  height: 10,
+                  textInputType: TextInputType.phone,
+                  labeltext: "Enter Phone",
+                  inputController: registerController.phoneController,
+                  maxLength: 10,
+                  lableFontSize: 20,
+                  lableFontStyle: FontWeight.bold,
+                  lableTextColor: Constants().mainColor,
                 ),
-                CommanDateTimePicker(
-                  labelText: "Date of Birth"
+                CommanDateTimePicker(labelText: "Date of Birth"),
+                CommonTextInput(
+                  isValidationRequired: false,
+                  textInputType: TextInputType.number,
+                  labeltext: "Referal Code",
+                  inputController: registerController.referalCodeController,
+                  maxLength: 10,
+                  lableFontSize: 20,
+                  lableFontStyle: FontWeight.bold,
+                  lableTextColor: Constants().mainColor,
                 ),
 
                 /*CommonDatePicker()
                     .CommonDateDropdown(text: "DOB", context: context),*/
                 SizedBox(
-                  height: 50,
+                  height: 10,
                 ),
                 CommonButton(
-                    onTap: () {
+                    onPressed: () {
                       if (registerFormKey.currentState.validate()) {
                         print("Validated");
                         registerController.register(
@@ -133,7 +132,7 @@ class VerifyOtpScreen extends StatelessWidget {
                   height: 20,
                 ),
                 CommonButton(
-                    onTap: () {
+                    onPressed: () {
                       if (otpFormKey.currentState.validate()) {
                         print("Validated");
                         registerController.signUp(
