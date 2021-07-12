@@ -11,15 +11,18 @@ import 'dateTimePickerFromTextField.dart';
 
 Widget CommonText(
     {String text,
-      double fontSize = 14.00,
-      Color textColor = Colors.white,
-      FontWeight fontStyle = FontWeight.normal}) {
+    double fontSize = 14.00,
+    Color textColor = Colors.white,
+    FontWeight fontStyle = FontWeight.normal,
+    bool isCenter=false}) {
   return Text(
     text,
     style:
-    TextStyle(fontSize: fontSize, color: textColor, fontWeight: fontStyle),
+        TextStyle(fontSize: fontSize, color: textColor, fontWeight: fontStyle),
+    textAlign: TextAlign.center,
   );
 }
+
 Widget CommanDateTimePicker({
   String labelText = "",
 }) {
@@ -27,21 +30,22 @@ Widget CommanDateTimePicker({
     labelText: labelText,
   );
 }
+
 Widget CommonTextInput(
     {String lable = "",
-      int maxLength,
-      int minLength,
-      int length,
-      hint = "",
-      labeltext = "Enter Value",
-      FontWeight lableFontStyle,
-      double lableFontSize,
-      lableTextColor,
-      TextEditingController inputController,
-      TextInputType textInputType = TextInputType.text,
-      String regexp,
-      errortext,
-      bool isRequired = false}) {
+    int maxLength,
+    int minLength,
+    int length,
+    hint = "",
+    labeltext = "Enter Value",
+    FontWeight lableFontStyle,
+    double lableFontSize,
+    lableTextColor,
+    TextEditingController inputController,
+    TextInputType textInputType = TextInputType.text,
+    String regexp,
+    errortext,
+    bool isRequired = false}) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
@@ -145,9 +149,9 @@ class CommonDatePicker extends GetxController {
                         primaryColor: Constants().mainColor,
                         accentColor: Constants().mainColor,
                         colorScheme:
-                        ColorScheme.light(primary: Constants().mainColor),
+                            ColorScheme.light(primary: Constants().mainColor),
                         buttonTheme:
-                        ButtonThemeData(textTheme: ButtonTextTheme.primary),
+                            ButtonThemeData(textTheme: ButtonTextTheme.primary),
                       ),
                       child: child,
                     );
@@ -164,7 +168,7 @@ class CommonDatePicker extends GetxController {
             },
             child: Container(
               padding:
-              EdgeInsets.only(left: 15, right: 10, top: 11, bottom: 11),
+                  EdgeInsets.only(left: 15, right: 10, top: 11, bottom: 11),
               width: MediaQuery.of(context).size.width,
               height: MediaQuery.of(context).size.height / 15,
               decoration: BoxDecoration(
@@ -212,28 +216,26 @@ Widget CommonButton({
   );
 }
 
-
 Widget AppDrawer() {
   return Drawer(
-
     child: Column(
       // Important: Remove any padding from the ListView.
 
       children: <Widget>[
         DrawerHeader(
-
           decoration: BoxDecoration(
             color: Constants().mainColor,
           ),
           child: Row(
-
             children: [
               CircleAvatar(
                 backgroundColor: Colors.black45,
                 radius: 35,
                 child: Icon(Icons.camera_alt_outlined),
               ),
-              SizedBox(width: 10,),
+              SizedBox(
+                width: 10,
+              ),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -253,17 +255,18 @@ Widget AppDrawer() {
                 height: 65,
                 width: 40,
                 padding: EdgeInsets.only(left: 20),
-                child: SvgPicture.asset("assets/icons/about.svg",color: Constants().mainColor,),
+                child: SvgPicture.asset(
+                  "assets/icons/about.svg",
+                  color: Constants().mainColor,
+                ),
               ),
               SizedBox(
                 width: 15,
               ),
-              CommonText(text: "About Us",textColor: Constants().mainColor)
+              CommonText(text: "About Us", textColor: Constants().mainColor)
             ],
           ),
-          onTap: () {
-
-          },
+          onTap: () {},
         ),
         Divider(),
         InkWell(
@@ -273,17 +276,19 @@ Widget AppDrawer() {
                 height: 65,
                 width: 40,
                 padding: EdgeInsets.only(left: 20),
-                child: SvgPicture.asset("assets/icons/privacy.svg",color: Constants().mainColor,),
+                child: SvgPicture.asset(
+                  "assets/icons/privacy.svg",
+                  color: Constants().mainColor,
+                ),
               ),
               SizedBox(
                 width: 15,
               ),
-              CommonText(text: "Privacy Policy",textColor: Constants().mainColor)
+              CommonText(
+                  text: "Privacy Policy", textColor: Constants().mainColor)
             ],
           ),
-          onTap: () {
-
-          },
+          onTap: () {},
         ),
         Divider(),
         InkWell(
@@ -293,17 +298,18 @@ Widget AppDrawer() {
                 height: 65,
                 width: 40,
                 padding: EdgeInsets.only(left: 20),
-                child: Icon(Icons.settings,color: Constants().mainColor,),
+                child: Icon(
+                  Icons.settings,
+                  color: Constants().mainColor,
+                ),
               ),
               SizedBox(
                 width: 15,
               ),
-              CommonText(text: "Settings",textColor: Constants().mainColor)
+              CommonText(text: "Settings", textColor: Constants().mainColor)
             ],
           ),
-          onTap: () {
-
-          },
+          onTap: () {},
         ),
         Divider(),
         InkWell(
@@ -313,20 +319,28 @@ Widget AppDrawer() {
                 height: 65,
                 width: 40,
                 padding: EdgeInsets.only(left: 20),
-                child: Icon(Icons.logout,color: Constants().mainColor,),
+                child: Icon(
+                  Icons.logout,
+                  color: Constants().mainColor,
+                ),
               ),
               SizedBox(
                 width: 15,
               ),
-              CommonText(text: "Logout",textColor: Constants().mainColor)
+              CommonText(text: "Logout", textColor: Constants().mainColor)
             ],
           ),
-          onTap: () {
-
-          },
+          onTap: () {},
         ),
         Divider(),
-        Expanded(child: Align(alignment: Alignment.bottomCenter,child: Center(child: CommonText(text: "Version 1.0",textColor: Constants().mainColor),),))
+        Expanded(
+            child: Align(
+          alignment: Alignment.bottomCenter,
+          child: Center(
+            child: CommonText(
+                text: "Version 1.0", textColor: Constants().mainColor),
+          ),
+        ))
       ],
     ),
   );
@@ -334,10 +348,10 @@ Widget AppDrawer() {
 
 ImageNetworkTap(
     {String imagePathAPI,
-      double width,
-      double height,
-      BoxFit fit,
-      Function ontap}) {
+    double width,
+    double height,
+    BoxFit fit,
+    Function ontap}) {
   return GestureDetector(
     onTap: () {
       ontap();
@@ -361,4 +375,41 @@ ImageNetworkTap(
       fit: fit,
     ),*/
   );
+}
+
+class CommonBottomSheet {
+  bottomSheet({BuildContext context, String title="title", Widget content}) {
+    showModalBottomSheet(
+        context: context,
+        backgroundColor: Colors.transparent,
+        builder: (builder) {
+          return Container(
+
+            decoration:  BoxDecoration(
+                color: Colors.white,
+                borderRadius: new BorderRadius.only(
+                    topLeft: const Radius.circular(25.0),
+                    topRight: const Radius.circular(25.0))),
+
+            child: Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(left: 30,right: 30,top: 15.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      CommonText(text: title,textColor: Constants().mainColor,fontSize: 20,fontStyle: FontWeight.bold),
+                      IconButton(onPressed: (){
+                        Navigator.pop(context);
+                      }, icon: Icon(Icons.clear,color: Constants().mainColor,))
+                    ],
+                  ),
+                ),
+                SizedBox(height: 25,),
+                content
+              ],
+            ),
+          );
+        });
+  }
 }
