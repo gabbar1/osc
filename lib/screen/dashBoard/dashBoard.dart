@@ -13,6 +13,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:screenshot/screenshot.dart';
 import 'package:share/share.dart';
 import 'package:upen/commonWidget/commonWidget.dart';
+import 'package:upen/screen/CustomerVerification/customerVerificationView.dart';
 import 'package:upen/screen/dashBoard/dashBoardController.dart';
 import 'package:upen/screen/helper/constant.dart';
 import 'package:upen/screen/leaderBoard/leaderBoardView.dart';
@@ -20,6 +21,7 @@ import 'package:upen/screen/leads/LeadView.dart';
 import 'package:upen/screen/myLevel/myLevelView.dart';
 import 'package:upen/screen/notes/notesView.dart';
 import 'package:upen/screen/payout/payOutView.dart';
+import 'package:upen/screen/products/productsView.dart';
 import 'package:upen/screen/refer/referView.dart';
 import 'package:upen/screen/team/teamView.dart';
 import 'package:upen/screen/training/trainingView.dart';
@@ -181,21 +183,26 @@ class _DashBoardViewState extends State<DashBoardView> {
                                                                       itemBuilder:
                                                                           (context,
                                                                               index) {
-                                                                        return Container(
-                                                                          padding:
-                                                                              EdgeInsets.only(right: 50),
-                                                                          child:
-                                                                              Column(
-                                                                            children: [
-                                                                              ImageNetworkTap(height: 20, width: 20, imagePathAPI: "https://e7.pngegg.com/pngimages/567/773/png-clipart-computer-icons-home-black-home-icon-miscellaneous-angle-thumbnail.png"),
-                                                                              SizedBox(
-                                                                                height: 10,
-                                                                              ),
-                                                                              CommonText(text: "Home Loan", textColor: Constants().mainColor),
-                                                                              SizedBox(
-                                                                                height: 20,
-                                                                              )
-                                                                            ],
+                                                                        return InkWell(
+                                                                          onTap: (){
+                                                                            Get.to(CustomerVerificationView());
+                                                                          },
+                                                                          child: Container(
+                                                                            padding:
+                                                                                EdgeInsets.only(right: 50),
+                                                                            child:
+                                                                                Column(
+                                                                              children: [
+                                                                                ImageNetworkTap(height: 20, width: 20, imagePathAPI: "https://e7.pngegg.com/pngimages/567/773/png-clipart-computer-icons-home-black-home-icon-miscellaneous-angle-thumbnail.png"),
+                                                                                SizedBox(
+                                                                                  height: 10,
+                                                                                ),
+                                                                                CommonText(text: "Home Loan", textColor: Constants().mainColor),
+                                                                                SizedBox(
+                                                                                  height: 20,
+                                                                                )
+                                                                              ],
+                                                                            ),
                                                                           ),
                                                                         );
                                                                       }),
@@ -792,12 +799,22 @@ class _DashBoardViewState extends State<DashBoardView> {
             ),
             Padding(
               padding: EdgeInsets.only(top: 5, left: 20, right: 20),
-              child: CommonText(
-                  text: "Our Products", textColor: Constants().mainColor),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  CommonText(
+                      text: "Our Products",
+                      textColor: Constants().mainColor),
+                  InkWell(onTap: (){
+                    Get.to(ProductsView());
+                  },child: CommonText(text: "View All", textColor: Colors.black))
+                ],
+              ),
             ),
             SizedBox(
               height: 10,
             ),
+
             Container(
               height: MediaQuery.of(context).size.height / 4.5,
               padding: EdgeInsets.only(left: 20, right: 20),
@@ -807,87 +824,290 @@ class _DashBoardViewState extends State<DashBoardView> {
                   itemBuilder: (BuildContext context, index) {
                     return SizedBox(
                       width: MediaQuery.of(context).size.width - 50,
-                      child: Card(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(15.0),
-                        ),
-                        child: Row(
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.only(left: 15.0),
-                              child: Container(
-                                margin: EdgeInsets.only(bottom: 5),
-                                height: 100,
-                                width: 100,
-                                child:
-                                    SvgPicture.asset("assets/icons/loan.svg"),
-                              ),
-                            ),
-                            SizedBox(
-                              width: 10,
-                            ),
-                            Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.only(left: 8.0),
-                                  child: CommonText(
-                                      text: "Loan",
-                                      textColor: Constants().mainColor),
-                                ),
-                                SizedBox(
-                                  height: 5,
-                                ),
-                                Row(
-                                  children: [
-                                    Row(
-                                      children: [
-                                        Container(
-                                          margin: EdgeInsets.only(bottom: 5),
-                                          height: 30,
-                                          width: 40,
-                                          child: SvgPicture.asset(
-                                              "assets/icons/medal.svg"),
-                                        ),
-                                        CommonText(
-                                            text: "Reward",
-                                            textColor: Constants().mainColor),
-                                      ],
-                                    ),
-                                    Row(
-                                      children: [
-                                        Container(
-                                          margin: EdgeInsets.only(bottom: 5),
-                                          height: 30,
-                                          width: 40,
-                                          child: SvgPicture.asset(
-                                              "assets/icons/healthy.svg"),
-                                        ),
-                                        CommonText(
-                                            text: "Lifestyle",
-                                            textColor: Constants().mainColor),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                                SizedBox(
-                                  height: 5,
-                                ),
-                                Container(
+                      child: InkWell(
+                        onTap: (){
+                          CommonBottomSheet().bottomSheet(
+                              context: context,
+                              content: Padding(
+                                padding: const EdgeInsets.only(
+                                    top: 10,
+                                    left: 20,
+                                    right: 20,
+                                    bottom: 10),
+                                child: Container(
+                                    height: MediaQuery.of(context)
+                                        .size
+                                        .height /
+                                        2.5,
+                                    child: SingleChildScrollView(
+                                      child: Column(
+                                        children: [
+                                          ListView.builder(
+                                              shrinkWrap: true,
+                                              itemCount: 2,
+                                              itemBuilder:
+                                                  (context, index) {
+                                                return Column(
+                                                  crossAxisAlignment:
+                                                  CrossAxisAlignment
+                                                      .start,
+                                                  children: [
+                                                    Row(
+                                                      children: [
+                                                        CommonText(
+                                                            text:
+                                                            "Loan",
+                                                            textColor:
+                                                            Constants()
+                                                                .mainColor),
+                                                        SizedBox(
+                                                          width: 5,
+                                                        ),
+                                                        Expanded(
+                                                            child:
+                                                            Container(
+                                                              width: MediaQuery.of(
+                                                                  context)
+                                                                  .size
+                                                                  .width -
+                                                                  100,
+                                                              height: 2,
+                                                              color: Constants()
+                                                                  .mainColor,
+                                                            ))
+                                                      ],
+                                                    ),
+                                                    SizedBox(
+                                                      height: 20,
+                                                    ),
+                                                    Container(
+                                                      height: MediaQuery.of(
+                                                          context)
+                                                          .size
+                                                          .height /
+                                                          12,
+                                                      child: ListView
+                                                          .builder(
+                                                          shrinkWrap:
+                                                          true,
+                                                          scrollDirection:
+                                                          Axis
+                                                              .horizontal,
+                                                          itemCount:
+                                                          3,
+                                                          itemBuilder:
+                                                              (context,
+                                                              index) {
+                                                            return Container(
+                                                              padding:
+                                                              EdgeInsets.only(right: 50),
+                                                              child:
+                                                              Column(
+                                                                children: [
+                                                                  ImageNetworkTap(height: 20, width: 20, imagePathAPI: "https://e7.pngegg.com/pngimages/567/773/png-clipart-computer-icons-home-black-home-icon-miscellaneous-angle-thumbnail.png"),
+                                                                  SizedBox(
+                                                                    height: 10,
+                                                                  ),
+                                                                  CommonText(text: "Home Loan", textColor: Constants().mainColor),
+                                                                  SizedBox(
+                                                                    height: 20,
+                                                                  )
+                                                                ],
+                                                              ),
+                                                            );
+                                                          }),
+                                                    ),
+                                                  ],
+                                                );
+                                              }),
+                                          SingleChildScrollView(
+                                            child: Column(
+                                              children: [
+                                                Row(
+                                                  children: [
+                                                    CommonText(
+                                                        text:
+                                                        "Credit Card",
+                                                        textColor:
+                                                        Constants()
+                                                            .mainColor),
+                                                    SizedBox(
+                                                      width: 5,
+                                                    ),
+                                                    Expanded(
+                                                      child: Container(
+                                                        width: MediaQuery.of(
+                                                            context)
+                                                            .size
+                                                            .width -
+                                                            100,
+                                                        height: 2,
+                                                        color: Constants()
+                                                            .mainColor,
+                                                      ),
+                                                    ),
+                                                    SizedBox(
+                                                      height: 5,
+                                                    ),
+                                                  ],
+                                                ),
+                                                SizedBox(
+                                                  height: 20,
+                                                ),
+                                                Row(
+                                                  mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                                  children: [
+                                                    Card(
+                                                      color: Constants()
+                                                          .mainColor,
+                                                      clipBehavior: Clip
+                                                          .antiAliasWithSaveLayer,
+                                                      shape:
+                                                      RoundedRectangleBorder(
+                                                        borderRadius:
+                                                        BorderRadius
+                                                            .circular(
+                                                            20.0),
+                                                      ),
+                                                      elevation: 0,
+                                                      child: Center(
+                                                        child:
+                                                        Container(
+                                                          margin:
+                                                          EdgeInsets
+                                                              .all(
+                                                              8),
+                                                          padding:
+                                                          EdgeInsets
+                                                              .all(
+                                                              8),
+                                                          height: 50,
+                                                          width: 60,
+                                                          child: SvgPicture
+                                                              .asset(
+                                                              "assets/icons/card.svg"),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    SizedBox(
+                                                      width: 20,
+                                                    ),
+                                                    Column(
+                                                      children: [
+                                                        CommonText(
+                                                            text:
+                                                            "Get a Extra Credit Line",
+                                                            textColor:
+                                                            Constants()
+                                                                .mainColor,
+                                                            fontSize:
+                                                            22),
+                                                        CommonText(
+                                                          text:
+                                                          "Give yourSelf a financial protection",
+                                                          textColor:
+                                                          Constants()
+                                                              .mainColor,
+                                                        )
+                                                      ],
+                                                    ),
+                                                    Spacer(),
+                                                    Icon(Icons
+                                                        .arrow_forward_ios_rounded)
+                                                  ],
+                                                )
+                                              ],
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    )),
+                              ));
+                        },
+                        child: Card(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(15.0),
+                          ),
+                          child: Row(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(left: 15.0),
+                                child: Container(
+                                  margin: EdgeInsets.only(bottom: 5),
+                                  height: 100,
                                   width: 100,
-                                  height: 40,
-                                  decoration: BoxDecoration(
-                                      color: Constants().mainColor,
-                                      borderRadius: BorderRadius.all(
-                                          Radius.circular(20))),
-                                  child: Center(
-                                    child: CommonText(text: "Add lead"),
+                                  child:
+                                      SvgPicture.asset("assets/icons/loan.svg"),
+                                ),
+                              ),
+                              SizedBox(
+                                width: 10,
+                              ),
+                              Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.only(left: 8.0),
+                                    child: CommonText(
+                                        text: "Loan",
+                                        textColor: Constants().mainColor),
                                   ),
-                                )
-                              ],
-                            ),
-                          ],
+                                  SizedBox(
+                                    height: 5,
+                                  ),
+                                  Row(
+                                    children: [
+                                      Row(
+                                        children: [
+                                          Container(
+                                            margin: EdgeInsets.only(bottom: 5),
+                                            height: 30,
+                                            width: 40,
+                                            child: SvgPicture.asset(
+                                                "assets/icons/medal.svg"),
+                                          ),
+                                          CommonText(
+                                              text: "Reward",
+                                              textColor: Constants().mainColor),
+                                        ],
+                                      ),
+                                      Row(
+                                        children: [
+                                          Container(
+                                            margin: EdgeInsets.only(bottom: 5),
+                                            height: 30,
+                                            width: 40,
+                                            child: SvgPicture.asset(
+                                                "assets/icons/healthy.svg"),
+                                          ),
+                                          CommonText(
+                                              text: "Lifestyle",
+                                              textColor: Constants().mainColor),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    height: 5,
+                                  ),
+                                  Container(
+                                    width: 100,
+                                    height: 40,
+                                    decoration: BoxDecoration(
+                                        color: Constants().mainColor,
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(20))),
+                                    child: Center(
+                                      child: CommonText(text: "Add lead"),
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     );
