@@ -18,7 +18,7 @@ class RegisterPageView extends StatelessWidget {
       appBar: AppBar(
         centerTitle: true,
         title: Text("Registration"),
-        backgroundColor: Color(0xff123374),
+        backgroundColor: Constants().mainColor,
       ),
       body: Container(
         margin: EdgeInsets.only(top: 10, left: 15, right: 15),

@@ -10,6 +10,12 @@ class DashBoardController extends GetxController{
 
   var banners = <BannerModel>[].obs;
   List<BannerModel> get getBanners => banners.value;
+  var isHide = false.obs;
+  bool get getIsHide => isHide.value;
+
+  setIsHide(bool val){
+    isHide.value = val;
+  }
 
   setBannerList(BannerModel bannerModel){
 

@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
@@ -33,11 +34,17 @@ Widget CommonText(
     {String text,
     double fontSize = 14.00,
     Color textColor = Colors.white,
-    FontWeight fontStyle = FontWeight.normal}) {
+
+    FontWeight fontStyle = FontWeight.normal,
+    bool isCenter=false}) {
   return Text(
     text,
     style:
+
         TextStyle(fontSize: fontSize, color: textColor, fontWeight: fontStyle,fontFamily: 'Cambria'),
+        /*TextStyle(fontSize: fontSize, color: textColor, fontWeight: fontStyle),*/
+    textAlign: TextAlign.center,
+
   );
 }
 
@@ -49,11 +56,14 @@ Widget CommanDateTimePicker({
   );
 }
 
+
 Widget TextWidget({String name}) {
   return TestView(
     name: name,
   );
 }
+
+
 
 Widget CommonTextInput(
     {String lable = "",
@@ -71,6 +81,7 @@ Widget CommonTextInput(
     String regexp,
     errortext,
     bool isRequired = false}) {
+
   /*int maxLength,
       int minLength,
       int length,
@@ -84,6 +95,7 @@ Widget CommonTextInput(
       String regexp,
       errortext,
       bool isRequired = false}) {*/
+
 
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
@@ -120,7 +132,7 @@ Widget CommonTextInput(
             borderRadius: BorderRadius.circular(40.0),
           ),
           focusedBorder: OutlineInputBorder(
-            borderSide: const BorderSide(color: Color(0xff123374), width: 2.0),
+            borderSide: const BorderSide(color: Color(0xff523374), width: 2.0),
             borderRadius: BorderRadius.circular(25.0),
           ),
         ),
@@ -310,7 +322,7 @@ Widget CommonButton({
         shape: MaterialStateProperty.all<RoundedRectangleBorder>(
             RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(40.0),
-                side: BorderSide(color: Color(0xff123374))))),
+                side: BorderSide(color: Constants().mainColor)))),
   );
 }
 
@@ -428,11 +440,13 @@ Widget AppDrawer() {
               CommonText(text: "Logout", textColor: Constants().mainColor)
             ],
           ),
+
           onTap: () {
             FirebaseAuth.instance
                 .signOut()
                 .whenComplete(() => Get.offAll(StartPage()));
           },
+
         ),
         Divider(),
         Expanded(
@@ -478,3 +492,42 @@ ImageNetworkTap(
     ),*/
   );
 }
+
+
+class CommonBottomSheet {
+  bottomSheet({BuildContext context, String title="title", Widget content}) {
+    showModalBottomSheet(
+        context: context,
+        backgroundColor: Colors.transparent,
+        builder: (builder) {
+          return Container(
+
+            decoration:  BoxDecoration(
+                color: Colors.white,
+                borderRadius: new BorderRadius.only(
+                    topLeft: const Radius.circular(25.0),
+                    topRight: const Radius.circular(25.0))),
+
+            child: Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(left: 30,right: 30,top: 15.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      CommonText(text: title,textColor: Constants().mainColor,fontSize: 20,fontStyle: FontWeight.bold),
+                      IconButton(onPressed: (){
+                        Navigator.pop(context);
+                      }, icon: Icon(Icons.clear,color: Constants().mainColor,))
+                    ],
+                  ),
+                ),
+                SizedBox(height: 25,),
+                content
+              ],
+            ),
+          );
+        });
+  }
+}
+

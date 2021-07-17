@@ -1,6 +1,11 @@
 
 import 'package:flutter/material.dart';
+
 import 'package:upen/screen/earning/earningPage.dart';
+
+import 'package:flutter_svg/svg.dart';
+import 'package:upen/commonWidget/commonWidget.dart';
+
 import 'package:upen/screen/helper/constant.dart';
 import 'package:upen/screen/profile/profilePage.dart';
 import 'package:upen/screen/register/registerPage.dart';
@@ -13,23 +18,68 @@ class HomeNavigator extends StatefulWidget {
 }
 int _CurrentIdex=0;
 
+
 Widget callPage(int currentIdex){
+
   switch(currentIdex){
+
     case 0 : return DashBoardView();
     case 1:return  RegisterPageView();
     case 2:return  RegisterPageView();
     case 3:return  EarningScreen();
     case 4:return  ProfileScreen();
+
+    case 0 :
+
+      return DashBoardView();
+    case 1:
+
+      return  RegisterPageView();
+    case 2:
+
+      return  RegisterPageView();
+    case 3:
+
+      return  RegisterPageView();
+    case 4:
+
+      return  RegisterPageView();
+
     break;
     default: return DashBoardView();
   }
+
 }
 
 
 class _HomeNavigatorState extends State<HomeNavigator> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: callPage(_CurrentIdex),
+
+    return Scaffold(
+      appBar: AppBar(actions: [
+        IconButton(
+          icon: Icon(Icons.notification_important_outlined),
+          onPressed: () {},
+        ),
+        InkWell(
+          child: Container(
+            height: 65,
+            width: 40,
+            padding: EdgeInsets.only(left: 10, right: 5),
+            child: SvgPicture.asset(
+              "assets/icons/support.svg",
+              color: Colors.white,
+              height: 10,
+            ),
+          ),
+          onTap: () {},
+        ),
+        SizedBox(
+          width: 10,
+        )
+      ],title: CommonText(text: _CurrentIdex ==0 ? "DashBoard":_CurrentIdex ==1 ?"Products":_CurrentIdex ==2?"Calculator":_CurrentIdex ==3?"Earning":_CurrentIdex ==4?"Profile":"DashBoard"),),
+      body: callPage(_CurrentIdex),
         bottomNavigationBar:BottomNavigationBar(
           items: const <BottomNavigationBarItem>[
             BottomNavigationBarItem(
@@ -60,7 +110,8 @@ class _HomeNavigatorState extends State<HomeNavigator> {
               _CurrentIdex = position;
             });
           },
-        )
+        ),
+      drawer: AppDrawer(),
 
    );
   }
