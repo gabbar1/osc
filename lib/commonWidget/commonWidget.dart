@@ -14,6 +14,21 @@ import 'dateTimePickerFromTextField.dart';
 
 import 'dateTimePickerFromTextField.dart';
 
+
+Widget CommonDropDown({
+  Function onChanged,
+}){
+  return DropdownButton<String>(
+    items: <String>['A', 'B', 'C', 'D'].map((String value) {
+      return DropdownMenuItem<String>(
+        value: value,
+        child: new Text(value),
+      );
+    }).toList(),
+    onChanged: onChanged,
+  );
+}
+
 Widget CommonText(
     {String text,
     double fontSize = 14.00,
@@ -22,7 +37,7 @@ Widget CommonText(
   return Text(
     text,
     style:
-        TextStyle(fontSize: fontSize, color: textColor, fontWeight: fontStyle),
+        TextStyle(fontSize: fontSize, color: textColor, fontWeight: fontStyle,fontFamily: 'Cambria'),
   );
 }
 
@@ -236,26 +251,62 @@ Widget CommonInkWellButton(
   );
 }
 
+Widget CommonInkwellButtonProfile({
+  Function onTap,
+  BuildContext context,
+  String buttonText,
+  Color buttonTextColor,
+  buttonColor,
+  double width,
+  double height,
+  FontWeight buttonTextStyle,
+  double buttonTextSize = 14.00,
+  Color shdowColor
+}){
+  return InkWell(
+    onTap: onTap,
+    child: Container(
+        width:width,
+        height: height,
+        decoration: BoxDecoration(
+          color: buttonColor,
+          borderRadius: BorderRadius.circular(4.0),
+        ),
+        child: Center(
+            child: CommonText(
+                text: buttonText,
+                textColor: buttonTextColor,
+                fontStyle: buttonTextStyle,
+                fontSize: buttonTextSize))),
+  );
+}
+
+
 Widget CommonButton({
   Function onPressed,
   BuildContext context,
-  String buttonText,
+  String buttonText="My Button",
   Color buttonTextColor,
   Color buttonColor,
   Color shdowColor,
   FontWeight buttonTextStyle,
   double buttonTextSize = 14.00,
+  double vPadding=25,
+  double hPadding=130,
+  Icon buttonIcon,
 }) {
   return ElevatedButton(
+
     onPressed: () {
       onPressed();
     },
-    child: Text(buttonText),
+    child: Text(buttonText,style: TextStyle(color: buttonTextColor),),
     style: ButtonStyle(
+
         shadowColor: MaterialStateProperty.all(shdowColor),
         backgroundColor: MaterialStateProperty.all(buttonColor),
         padding: MaterialStateProperty.all(
-            EdgeInsets.symmetric(vertical: 25, horizontal: 130)),
+            EdgeInsets.symmetric(vertical: vPadding, horizontal: hPadding)),
         shape: MaterialStateProperty.all<RoundedRectangleBorder>(
             RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(40.0),

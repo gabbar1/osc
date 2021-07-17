@@ -56,13 +56,14 @@ class LoginPageView extends StatelessWidget {
                       if (loginFormKey.currentState.validate()) {
                         print("Validated");
                         loginController.login(
-                          phone: loginController.otpController.text,
+                          phone: loginController.phoneController.text,
                         );
                       } else {
                         print("not validated");
                       }
                     },
                     context: context,
+
                     buttonText: "Login",
                     buttonColor: Constants().mainColor,
                     shdowColor: Colors.lightBlue,

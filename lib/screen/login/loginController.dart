@@ -4,7 +4,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:upen/commonWidget/commonWidget.dart';
+import 'package:upen/screen/dashBoard/homeNavigator.dart';
 import 'package:upen/screen/helper/constant.dart';
+import 'package:upen/screen/login/loginPage.dart';
 import 'package:upen/screen/register/registerPage.dart';
 
 class LoginController extends GetxController {
@@ -12,12 +14,15 @@ class LoginController extends GetxController {
   TextEditingController otpController = TextEditingController();
   String phoneNo, verficationId;
   bool codeSent = false;
+  bool isLogin=true;
 
   Future<void> login({String phone}) async {
+    print("--- login called---");
     this.phoneNo = phone;
+
     DocumentSnapshot getSpecificData = await FirebaseFirestore.instance
         .collection('user_details')
-        .doc(phone)
+        .doc("+91$phone")
         .get();
     print("-----------------getSpecificData-------------------");
     print(getSpecificData.data());
@@ -87,5 +92,37 @@ class LoginController extends GetxController {
         verificationFailed: verificationFailed,
         codeSent: smsSent,
         codeAutoRetrievalTimeout: autoTimeout);
+  }
+
+
+  Future<void> loginUser({String otp,BuildContext context}) async {
+    try{
+      showDialog(context: context,
+          builder: (BuildContext context) {
+            return Center(child: CircularProgressIndicator(),);
+          });
+      var result= await FirebaseAuth.instance.signInWithCredential(PhoneAuthProvider.credential(
+        verificationId: verficationId,
+        smsCode: otp,
+        //8160137998
+      ));
+      if(!result.additionalUserInfo.isBlank){
+        Get.offAll(HomeNavigator());
+      }else{
+        print("Message-- Error to Login");
+       // Get.snackbar("Message", result.additionalUserInfo.isBlank.toString());
+      }
+      /*if(!result.additionalUserInfo.isBlank){
+        addUserDetails();
+        Get.offAll(HomeNavigator());
+      }*/
+      /*Get.snackbar("Message", result.additionalUserInfo.isBlank.toString());*/
+      // updateDetail(context: context);
+
+    } on Exception catch(e){
+      Get.snackbar("Erro", e.toString());
+      otp=null;
+    }
+
   }
 }

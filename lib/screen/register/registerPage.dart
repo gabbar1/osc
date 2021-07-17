@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:upen/commonWidget/commonWidget.dart';
 import 'package:upen/screen/helper/constant.dart';
+import 'package:upen/screen/login/loginController.dart';
 
 import 'registerController.dart';
 
@@ -9,7 +10,6 @@ class RegisterPageView extends StatelessWidget {
   RegisterController registerController = Get.put(RegisterController());
   CommonDatePicker commonDatePicker = Get.put(CommonDatePicker());
   GlobalKey<FormState> registerFormKey = new GlobalKey<FormState>();
-
 
   @override
   Widget build(BuildContext context) {
@@ -80,7 +80,9 @@ class RegisterPageView extends StatelessWidget {
                             email: registerController.emailController.text,
                             phone: registerController.phoneController.text,
                             name: registerController.nameController.text,
-                            dob: commonDatePicker.getSelectedDate);
+                            dob: commonDatePicker.getSelectedDate,
+                            referalCode:
+                                registerController.referalCodeController.text);
                       } else {
                         print("not validated");
                       }
@@ -101,9 +103,12 @@ class RegisterPageView extends StatelessWidget {
   }
 }
 
+//--------------------------------------------- OTP Verification----------------------------------------------------\\
 class VerifyOtpScreen extends StatelessWidget {
   RegisterController registerController = Get.put(RegisterController());
+  LoginController loginController = Get.put(LoginController());
   String name, email, phone, dob;
+
   GlobalKey<FormState> otpFormKey = new GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
@@ -113,42 +118,74 @@ class VerifyOtpScreen extends StatelessWidget {
         centerTitle: true,
         title: CommonText(text: "Verify OTP", fontSize: 20),
       ),
-      body: Container(
-        margin: EdgeInsets.only(top: 15, left: 15, right: 15),
-        child: Form(
-          key: otpFormKey,
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                CommonTextInput(
-                    textInputType: TextInputType.phone,
-                    hint: "Enter OTP",
-                    inputController: registerController.otpController,
-                    lable: "OPT",
-                    lableFontSize: 20,
-                    lableFontStyle: FontWeight.bold,
-                    lableTextColor: Constants().mainColor),
-                SizedBox(
-                  height: 20,
-                ),
-                CommonButton(
-                    onPressed: () {
-                      if (otpFormKey.currentState.validate()) {
-                        print("Validated");
-                        registerController.signUp(
-                            context: context,
-                            otp: registerController.otpController.text);
-                      } else {
-                        print("not validated");
-                      }
-                    },
-                    context: context,
-                    buttonText: "Register",
-                    buttonColor: Constants().mainColor,
-                    buttonTextColor: Colors.white,
-                    buttonTextSize: 18,
-                    buttonTextStyle: FontWeight.bold)
-              ],
+      body: Center(
+        child: Container(
+          width: MediaQuery.of(context).size.width * .9,
+          height: MediaQuery.of(context).size.width * .8,
+          decoration: BoxDecoration(color: Colors.white, boxShadow: [
+            BoxShadow(
+              color: Colors.grey,
+              blurRadius: 10,
+            ),
+          ]),
+          child: Form(
+            key: otpFormKey,
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SizedBox(
+                    height: 5,
+                  ),
+                  Text(
+                    "Enter 6 dits OTP here.",
+                    style: TextStyle(fontSize: 20),
+                  ),
+                  SizedBox(
+                    height: 15,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 5.0),
+                    child: CommonTextInput(
+                        textInputType: TextInputType.phone,
+                        labeltext: "Enter OTP here",
+                        inputController: registerController.otpController,
+                        maxLength: 6,
+                        lableFontSize: 20,
+                        lableFontStyle: FontWeight.bold,
+                        lableTextColor: Constants().mainColor),
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  CommonButton(
+                      onPressed: () {
+                        if (loginController.isLogin) {
+                          if (otpFormKey.currentState.validate()) {
+                            loginController.loginUser(
+                                context: context,
+                                otp: registerController.otpController.text);
+                          } else {
+                            print("not validated");
+                          }
+                        } else {
+                          if (otpFormKey.currentState.validate()) {
+                            registerController.signUp(
+                                context: context,
+                                otp: registerController.otpController.text);
+                          } else {
+                            print("not validated");
+                          }
+                        }
+                      },
+                      context: context,
+                      buttonText: "Submit",
+                      buttonColor: Constants().mainColor,
+                      buttonTextColor: Colors.white,
+                      buttonTextSize: 18,
+                      buttonTextStyle: FontWeight.bold)
+                ],
+              ),
             ),
           ),
         ),

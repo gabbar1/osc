@@ -1,6 +1,8 @@
 
 import 'package:flutter/material.dart';
+import 'package:upen/screen/earning/earningPage.dart';
 import 'package:upen/screen/helper/constant.dart';
+import 'package:upen/screen/profile/profilePage.dart';
 import 'package:upen/screen/register/registerPage.dart';
 import 'package:upen/screen/updateScreen/forceUpdate.dart';
 import 'dashboard.dart';
@@ -16,8 +18,8 @@ Widget callPage(int currentIdex){
     case 0 : return DashBoardView();
     case 1:return  RegisterPageView();
     case 2:return  RegisterPageView();
-    case 3:return  RegisterPageView();
-    case 4:return  RegisterPageView();
+    case 3:return  EarningScreen();
+    case 4:return  ProfileScreen();
     break;
     default: return DashBoardView();
   }
