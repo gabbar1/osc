@@ -15,6 +15,21 @@ import 'dateTimePickerFromTextField.dart';
 
 import 'dateTimePickerFromTextField.dart';
 
+
+Widget CommonDropDown({
+  Function onChanged,
+}){
+  return DropdownButton<String>(
+    items: <String>['A', 'B', 'C', 'D'].map((String value) {
+      return DropdownMenuItem<String>(
+        value: value,
+        child: new Text(value),
+      );
+    }).toList(),
+    onChanged: onChanged,
+  );
+}
+
 Widget CommonText(
     {String text,
     double fontSize = 14.00,
@@ -25,8 +40,11 @@ Widget CommonText(
   return Text(
     text,
     style:
-        TextStyle(fontSize: fontSize, color: textColor, fontWeight: fontStyle),
+
+        TextStyle(fontSize: fontSize, color: textColor, fontWeight: fontStyle,fontFamily: 'Cambria'),
+        /*TextStyle(fontSize: fontSize, color: textColor, fontWeight: fontStyle),*/
     textAlign: TextAlign.center,
+
   );
 }
 
@@ -45,6 +63,8 @@ Widget TextWidget({String name}) {
   );
 }
 
+
+
 Widget CommonTextInput(
     {String lable = "",
     bool isValidationRequired = true,
@@ -60,7 +80,8 @@ Widget CommonTextInput(
     TextInputType textInputType = TextInputType.text,
     String regexp,
     errortext,
-    bool isRequired = false}) {
+    bool isRequired = false,
+    bool isReadOnly = false}) {
 
   /*int maxLength,
       int minLength,
@@ -101,6 +122,7 @@ Widget CommonTextInput(
               border: Border.all(color: Colors.blue[700])),
           child:*/
       TextFormField(
+        readOnly: isReadOnly,
         maxLength: maxLength,
         keyboardType: textInputType,
         controller: inputController,
@@ -112,7 +134,7 @@ Widget CommonTextInput(
             borderRadius: BorderRadius.circular(40.0),
           ),
           focusedBorder: OutlineInputBorder(
-            borderSide: const BorderSide(color: Color(0xff123374), width: 2.0),
+            borderSide: const BorderSide(color: Color(0xff523374), width: 2.0),
             borderRadius: BorderRadius.circular(25.0),
           ),
         ),
@@ -243,30 +265,66 @@ Widget CommonInkWellButton(
   );
 }
 
+Widget CommonInkwellButtonProfile({
+  Function onTap,
+  BuildContext context,
+  String buttonText,
+  Color buttonTextColor,
+  buttonColor,
+  double width,
+  double height,
+  FontWeight buttonTextStyle,
+  double buttonTextSize = 14.00,
+  Color shdowColor
+}){
+  return InkWell(
+    onTap: onTap,
+    child: Container(
+        width:width,
+        height: height,
+        decoration: BoxDecoration(
+          color: buttonColor,
+          borderRadius: BorderRadius.circular(4.0),
+        ),
+        child: Center(
+            child: CommonText(
+                text: buttonText,
+                textColor: buttonTextColor,
+                fontStyle: buttonTextStyle,
+                fontSize: buttonTextSize))),
+  );
+}
+
+
 Widget CommonButton({
   Function onPressed,
   BuildContext context,
-  String buttonText,
+  String buttonText="My Button",
   Color buttonTextColor,
   Color buttonColor,
   Color shdowColor,
   FontWeight buttonTextStyle,
   double buttonTextSize = 14.00,
+  double vPadding=25,
+  double hPadding=130,
+  Icon buttonIcon,
 }) {
   return ElevatedButton(
+
     onPressed: () {
       onPressed();
     },
-    child: Text(buttonText),
+    child: Text(buttonText,style: TextStyle(color: buttonTextColor),),
     style: ButtonStyle(
+
         shadowColor: MaterialStateProperty.all(shdowColor),
         backgroundColor: MaterialStateProperty.all(buttonColor),
         padding: MaterialStateProperty.all(
-            EdgeInsets.symmetric(vertical: 25, horizontal: 130)),
+            EdgeInsets.symmetric(vertical: vPadding, horizontal: hPadding)),
         shape: MaterialStateProperty.all<RoundedRectangleBorder>(
             RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(40.0),
-                side: BorderSide(color: Color(0xff123374))))),
+                side: BorderSide(color: Constants().mainColor)))),
   );
 }
 
@@ -437,6 +495,7 @@ ImageNetworkTap(
   );
 }
 
+
 class CommonBottomSheet {
   bottomSheet({BuildContext context, String title="title", Widget content}) {
     showModalBottomSheet(
@@ -473,3 +532,4 @@ class CommonBottomSheet {
         });
   }
 }
+

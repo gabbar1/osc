@@ -1,8 +1,13 @@
 
 import 'package:flutter/material.dart';
+
+import 'package:upen/screen/earning/earningPage.dart';
+
 import 'package:flutter_svg/svg.dart';
 import 'package:upen/commonWidget/commonWidget.dart';
+
 import 'package:upen/screen/helper/constant.dart';
+import 'package:upen/screen/profile/profilePage.dart';
 import 'package:upen/screen/register/registerPage.dart';
 import 'package:upen/screen/updateScreen/forceUpdate.dart';
 import 'dashboard.dart';
@@ -17,6 +22,13 @@ int _CurrentIdex=0;
 Widget callPage(int currentIdex){
 
   switch(currentIdex){
+
+    case 0 : return DashBoardView();
+    case 1:return  RegisterPageView();
+    case 2:return  RegisterPageView();
+    case 3:return  EarningScreen();
+    case 4:return  ProfileScreen();
+
     case 0 :
 
       return DashBoardView();
@@ -32,6 +44,7 @@ Widget callPage(int currentIdex){
     case 4:
 
       return  RegisterPageView();
+
     break;
     default: return DashBoardView();
   }

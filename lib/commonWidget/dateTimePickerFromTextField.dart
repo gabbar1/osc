@@ -21,7 +21,15 @@ class _DatePickerState extends State<DatePicker> {
 
   @override
   Widget build(BuildContext context) {
-    return  TextField(
+    return  TextFormField(
+      validator: (value) {
+        print("---------------Date-----------");
+        print(value);
+        if (value.toString().isEmpty) {
+         return "Field Required";
+        }
+        return null;
+      },
         style: TextStyle(color: Constants().mainColor),
         readOnly: true,
         controller: dateController,
@@ -31,7 +39,7 @@ class _DatePickerState extends State<DatePicker> {
             borderRadius: BorderRadius.circular(40.0),
           ),
           focusedBorder: OutlineInputBorder(
-            borderSide: const BorderSide(color: Color(0xff123374), width: 2.0),
+            borderSide: const BorderSide(color: Color(0xff523374), width: 2.0),
             borderRadius: BorderRadius.circular(25.0),
           ),
         ),

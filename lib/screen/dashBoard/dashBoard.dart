@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'dart:typed_data';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -14,6 +15,7 @@ import 'package:screenshot/screenshot.dart';
 import 'package:share/share.dart';
 import 'package:upen/commonWidget/commonWidget.dart';
 import 'package:upen/screen/CustomerVerification/customerVerificationView.dart';
+import 'package:upen/screen/customerCrediCardVerification/customerCreditCardVerification.dart';
 import 'package:upen/screen/dashBoard/dashBoardController.dart';
 import 'package:upen/screen/helper/constant.dart';
 import 'package:upen/screen/leaderBoard/leaderBoardView.dart';
@@ -33,6 +35,7 @@ class DashBoardView extends StatefulWidget {
 
 class _DashBoardViewState extends State<DashBoardView> {
   DashBoardController dashBoardController = Get.put(DashBoardController());
+
 
   @override
   void initState() {
@@ -57,6 +60,7 @@ class _DashBoardViewState extends State<DashBoardView> {
               height: MediaQuery.of(context).size.height / 4.5,
               child: Center(
                 child: new Obx(() => Swiper(
+
                       outer: false,
                       itemCount: dashBoardController.getBanners.length,
                       autoplayDelay: 5000,
@@ -185,6 +189,7 @@ class _DashBoardViewState extends State<DashBoardView> {
                                                                               index) {
                                                                         return InkWell(
                                                                           onTap: (){
+                                                                            print("------------------");
                                                                             Get.to(CustomerVerificationView());
                                                                           },
                                                                           child: Container(
@@ -193,7 +198,7 @@ class _DashBoardViewState extends State<DashBoardView> {
                                                                             child:
                                                                                 Column(
                                                                               children: [
-                                                                                ImageNetworkTap(height: 20, width: 20, imagePathAPI: "https://e7.pngegg.com/pngimages/567/773/png-clipart-computer-icons-home-black-home-icon-miscellaneous-angle-thumbnail.png"),
+                                                                                CachedNetworkImage(height: 20, width: 20,imageUrl: "https://e7.pngegg.com/pngimages/567/773/png-clipart-computer-icons-home-black-home-icon-miscellaneous-angle-thumbnail.png"),
                                                                                 SizedBox(
                                                                                   height: 10,
                                                                                 ),
@@ -211,104 +216,109 @@ class _DashBoardViewState extends State<DashBoardView> {
                                                         );
                                                       }),
                                                   SingleChildScrollView(
-                                                    child: Column(
-                                                      children: [
-                                                        Row(
-                                                          children: [
-                                                            CommonText(
-                                                                text:
-                                                                    "Credit Card",
-                                                                textColor:
-                                                                    Constants()
-                                                                        .mainColor),
-                                                            SizedBox(
-                                                              width: 5,
-                                                            ),
-                                                            Expanded(
-                                                              child: Container(
-                                                                width: MediaQuery.of(
-                                                                            context)
-                                                                        .size
-                                                                        .width -
-                                                                    100,
-                                                                height: 2,
-                                                                color: Constants()
-                                                                    .mainColor,
+                                                    child: InkWell(
+                                                      onTap: (){
+                                                        Get.to(CustomerCreditCardVerificationView());
+                                                      },
+                                                      child: Column(
+                                                        children: [
+                                                          Row(
+                                                            children: [
+                                                              CommonText(
+                                                                  text:
+                                                                      "Credit Card",
+                                                                  textColor:
+                                                                      Constants()
+                                                                          .mainColor),
+                                                              SizedBox(
+                                                                width: 5,
                                                               ),
-                                                            ),
-                                                            SizedBox(
-                                                              height: 5,
-                                                            ),
-                                                          ],
-                                                        ),
-                                                        SizedBox(
-                                                          height: 20,
-                                                        ),
-                                                        Row(
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .spaceBetween,
-                                                          children: [
-                                                            Card(
-                                                              color: Constants()
-                                                                  .mainColor,
-                                                              clipBehavior: Clip
-                                                                  .antiAliasWithSaveLayer,
-                                                              shape:
-                                                                  RoundedRectangleBorder(
-                                                                borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                            20.0),
-                                                              ),
-                                                              elevation: 0,
-                                                              child: Center(
-                                                                child:
-                                                                    Container(
-                                                                  margin:
-                                                                      EdgeInsets
-                                                                          .all(
-                                                                              8),
-                                                                  padding:
-                                                                      EdgeInsets
-                                                                          .all(
-                                                                              8),
-                                                                  height: 50,
-                                                                  width: 60,
-                                                                  child: SvgPicture
-                                                                      .asset(
-                                                                          "assets/icons/card.svg"),
+                                                              Expanded(
+                                                                child: Container(
+                                                                  width: MediaQuery.of(
+                                                                              context)
+                                                                          .size
+                                                                          .width -
+                                                                      100,
+                                                                  height: 2,
+                                                                  color: Constants()
+                                                                      .mainColor,
                                                                 ),
                                                               ),
-                                                            ),
-                                                            SizedBox(
-                                                              width: 20,
-                                                            ),
-                                                            Column(
-                                                              children: [
-                                                                CommonText(
+                                                              SizedBox(
+                                                                height: 5,
+                                                              ),
+                                                            ],
+                                                          ),
+                                                          SizedBox(
+                                                            height: 20,
+                                                          ),
+                                                          Row(
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .spaceBetween,
+                                                            children: [
+                                                              Card(
+                                                                color: Constants()
+                                                                    .mainColor,
+                                                                clipBehavior: Clip
+                                                                    .antiAliasWithSaveLayer,
+                                                                shape:
+                                                                    RoundedRectangleBorder(
+                                                                  borderRadius:
+                                                                      BorderRadius
+                                                                          .circular(
+                                                                              20.0),
+                                                                ),
+                                                                elevation: 0,
+                                                                child: Center(
+                                                                  child:
+                                                                      Container(
+                                                                    margin:
+                                                                        EdgeInsets
+                                                                            .all(
+                                                                                8),
+                                                                    padding:
+                                                                        EdgeInsets
+                                                                            .all(
+                                                                                8),
+                                                                    height: 50,
+                                                                    width: 60,
+                                                                    child: SvgPicture
+                                                                        .asset(
+                                                                            "assets/icons/card.svg"),
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                              SizedBox(
+                                                                width: 20,
+                                                              ),
+                                                              Column(
+                                                                children: [
+                                                                  CommonText(
+                                                                      text:
+                                                                          "Get a Extra Credit Line",
+                                                                      textColor:
+                                                                          Constants()
+                                                                              .mainColor,
+                                                                      fontSize:
+                                                                          22),
+                                                                  CommonText(
                                                                     text:
-                                                                        "Get a Extra Credit Line",
+                                                                        "Give yourSelf a financial protection",
                                                                     textColor:
                                                                         Constants()
                                                                             .mainColor,
-                                                                    fontSize:
-                                                                        22),
-                                                                CommonText(
-                                                                  text:
-                                                                      "Give yourSelf a financial protection",
-                                                                  textColor:
-                                                                      Constants()
-                                                                          .mainColor,
-                                                                )
-                                                              ],
-                                                            ),
-                                                            Spacer(),
-                                                            Icon(Icons
-                                                                .arrow_forward_ios_rounded)
-                                                          ],
-                                                        )
-                                                      ],
+                                                                  )
+                                                                ],
+                                                              ),
+                                                              Spacer(),
+                                                              Icon(Icons
+                                                                  .arrow_forward_ios_rounded)
+                                                            ],
+                                                          )
+                                                        ],
+                                                      ),
                                                     ),
                                                   )
                                                 ],
@@ -814,7 +824,6 @@ class _DashBoardViewState extends State<DashBoardView> {
             SizedBox(
               height: 10,
             ),
-
             Container(
               height: MediaQuery.of(context).size.height / 4.5,
               padding: EdgeInsets.only(left: 20, right: 20),
@@ -898,21 +907,26 @@ class _DashBoardViewState extends State<DashBoardView> {
                                                           itemBuilder:
                                                               (context,
                                                               index) {
-                                                            return Container(
-                                                              padding:
-                                                              EdgeInsets.only(right: 50),
-                                                              child:
-                                                              Column(
-                                                                children: [
-                                                                  ImageNetworkTap(height: 20, width: 20, imagePathAPI: "https://e7.pngegg.com/pngimages/567/773/png-clipart-computer-icons-home-black-home-icon-miscellaneous-angle-thumbnail.png"),
-                                                                  SizedBox(
-                                                                    height: 10,
-                                                                  ),
-                                                                  CommonText(text: "Home Loan", textColor: Constants().mainColor),
-                                                                  SizedBox(
-                                                                    height: 20,
-                                                                  )
-                                                                ],
+                                                            return InkWell(
+                                                              onTap: (){
+                                                                Get.to(CustomerVerificationView());
+                                                              },
+                                                              child: Container(
+                                                                padding:
+                                                                EdgeInsets.only(right: 50),
+                                                                child:
+                                                                Column(
+                                                                  children: [
+                                                                    CachedNetworkImage(height: 20, width: 20,imageUrl: "https://e7.pngegg.com/pngimages/567/773/png-clipart-computer-icons-home-black-home-icon-miscellaneous-angle-thumbnail.png"),
+                                                                    SizedBox(
+                                                                      height: 10,
+                                                                    ),
+                                                                    CommonText(text: "Home Loan", textColor: Constants().mainColor),
+                                                                    SizedBox(
+                                                                      height: 20,
+                                                                    )
+                                                                  ],
+                                                                ),
                                                               ),
                                                             );
                                                           }),
@@ -1119,6 +1133,7 @@ class _DashBoardViewState extends State<DashBoardView> {
           ],
         ),
       ),
+
     );
   }
 }

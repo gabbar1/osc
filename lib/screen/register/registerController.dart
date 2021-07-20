@@ -18,8 +18,8 @@ class RegisterController extends GetxController{
   TextEditingController referalCodeController = TextEditingController();
   String phoneNo,referalCode,verficationId,smsCode,dob,email,password,name;
   bool codeSent = false;
-
-  Future<void> register({String name,email,phone,dob})async{
+  bool isLogin=false;
+  Future<void> register({String name,email,phone,dob,referalCode})async{
 
     this.name = name;
     this.email = email;
@@ -82,6 +82,7 @@ class RegisterController extends GetxController{
     final PhoneCodeSent smsSent  = (String verId,[int forceResend]){
       this.codeSent = true;
       this.verficationId = verId;
+
       Get.snackbar("title", codeSent.toString());
       if (codeSent) {
         print("OTP screen redirect");
