@@ -1,11 +1,17 @@
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:contacts_service/contacts_service.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:upen/commonWidget/loader.dart';
+import 'package:upen/screen/CustomerVerification/loadModel.dart';
+import 'package:upen/screen/dashBoard/homeNavigator.dart';
 
 class CustomerVerificationController extends GetxController{
+
   TextEditingController phoneValueController = TextEditingController();
   TextEditingController panController = TextEditingController();
   TextEditingController nameController = TextEditingController();
@@ -20,8 +26,34 @@ class CustomerVerificationController extends GetxController{
   TextEditingController officeEmailController = TextEditingController();
   TextEditingController officeAddressController = TextEditingController();
   TextEditingController officePinCodeController = TextEditingController();
+  TextEditingController stateController = TextEditingController();
+  TextEditingController cityController = TextEditingController();
+//  TextEditingController odbController = TextEditingController();
+  TextEditingController firmNameController = TextEditingController();
+  TextEditingController itrController = TextEditingController();
+  TextEditingController officeCityController = TextEditingController();
+  TextEditingController officeStateController = TextEditingController();
+  TextEditingController expController = TextEditingController();
+  var dobController = TextEditingController().obs;
+
+
+
+
+
+  TextEditingController get getDonController =>  dobController.value;
+  setDob(String textEditingController){
+    print("--------------checkText---------------");
+  //  print(textEditingController);
+    this.dobController.value.text = textEditingController;
+   // print(dobController.value.text);
+    dobController.refresh();
+    print(getDonController.text);
+
+  }
 
   var verification = TextEditingController().obs;
+
+
   TextEditingController get getVerification => verification.value;
 
   setVerification(String val){
@@ -66,5 +98,38 @@ class CustomerVerificationController extends GetxController{
       SnackBar(content: Text('Contact data not available on device'));
       ScaffoldMessenger.of(Get.context).showSnackBar(snackBar);
     }
+  }
+
+  Future<void> checkEligibility({SubmitLoadModel submitLoadModel}) async{
+
+    showLoader();
+
+
+    FirebaseFirestore.instance.collection("leads").doc(FirebaseAuth.instance.currentUser.phoneNumber.replaceAll("+91", "")).collection(FirebaseAuth.instance.currentUser.phoneNumber.replaceAll("+91", "")).add(
+        {
+          "backend_comment":"no comments",
+          "create_date":DateTime.now().toString(),
+        "salary":submitLoadModel.salary,
+          "Company_Name":submitLoadModel.cName,
+          "designation":submitLoadModel.designation,"experience":submitLoadModel.exp,"Company_Email":submitLoadModel.cEmail,"Company_Address":submitLoadModel.cAdd,"Company_State":submitLoadModel.cState,"Company_City":submitLoadModel.cCity,"Company_Pincode":submitLoadModel.cPincode,
+         "mobile":submitLoadModel.loanModel.mobile,
+         "name":submitLoadModel.loanModel.name,
+        "email":submitLoadModel.loanModel.email,
+        "dob":submitLoadModel.loanModel.dob,
+        "address":submitLoadModel.loanModel.address,
+        "state":submitLoadModel.loanModel.state,
+        "city":submitLoadModel.loanModel.city,
+        "pincode":submitLoadModel.loanModel.pincode,
+          "bankChoice":"no preference",
+          "status":"pending",
+          "leadType":submitLoadModel.loanModel.loanType
+        }).then((value) {
+          closeLoader();
+      Get.offAll(HomeNavigator(),duration: Duration(seconds: 1),fullscreenDialog: true);
+      Get.snackbar("Done", "Thank you for submitting the application we will review and update you soon",backgroundColor: Colors.amber);
+    }).onError((error, stackTrace) {
+      closeLoader();
+      Get.snackbar("Error", error.toString(), backgroundColor: Colors.amber);
+    });
   }
 }

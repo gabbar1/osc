@@ -19,7 +19,7 @@ Future<void> main() async{
       GetMaterialApp(
         debugShowCheckedModeBanner: false,
 
-        theme: ThemeData(primaryColor: Constants().mainColor),
+        theme: ThemeData(primaryColor: Constants().mainColor,appBarTheme: AppBarTheme(backgroundColor: Constants().mainColor)),
         home: MyApp(),));
 }
 

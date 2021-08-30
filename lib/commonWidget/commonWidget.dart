@@ -8,6 +8,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:upen/screen/CustomerVerification/customerVerificationView.dart';
+import 'package:upen/screen/customerCrediCardVerification/customerCreditCardVerification.dart';
 import 'package:upen/screen/helper/constant.dart';
 import 'package:upen/screen/startPage/startPage.dart';
 import 'package:upen/test/testView.dart';
@@ -81,7 +83,8 @@ Widget CommonTextInput(
     String regexp,
     errortext,
     bool isRequired = false,
-    bool isReadOnly = false}) {
+    bool isReadOnly = false,
+      TextInputAction textInputAction = TextInputAction.done}) {
 
   /*int maxLength,
       int minLength,
@@ -122,12 +125,16 @@ Widget CommonTextInput(
               border: Border.all(color: Colors.blue[700])),
           child:*/
       TextFormField(
+        textInputAction: textInputAction,
+        cursorColor:   Constants().mainColor,
         readOnly: isReadOnly,
         maxLength: maxLength,
         keyboardType: textInputType,
         controller: inputController,
         style: TextStyle(color: Constants().mainColor),
         decoration: InputDecoration(
+
+          labelStyle:   TextStyle(color:  Constants().mainColor),
           hintText: hint,
           labelText: labeltext,
           border: new OutlineInputBorder(
@@ -531,5 +538,233 @@ class CommonBottomSheet {
           );
         });
   }
+}
+
+Widget AddLead(){
+  return  CommonBottomSheet().bottomSheet(
+      title: "Add Lead",
+      context: Get.context,
+      content: Padding(
+        padding: const EdgeInsets.only(
+            top: 10,
+            left: 20,
+            right: 20,
+            bottom: 10),
+        child: Column(
+          children: [
+            InkWell(
+              onTap: (){
+                Get.to(CustomerVerificationView());
+              },
+              child: Column(
+                children: [
+                  Row(
+                    children: [
+                      CommonText(
+                          text:
+                          "Loans",
+                          textColor:
+                          Constants()
+                              .mainColor),
+                      SizedBox(
+                        width: 5,
+                      ),
+                      Expanded(
+                        child: Container(
+                          width: MediaQuery.of(
+                              Get.context)
+                              .size
+                              .width -
+                              100,
+                          height: 2,
+                          color: Constants()
+                              .mainColor,
+                        ),
+                      ),
+                      SizedBox(
+                        height: 5,
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Row(
+                    mainAxisAlignment:
+                    MainAxisAlignment
+                        .spaceBetween,
+                    children: [
+                      Card(
+                        color: Constants()
+                            .mainColor,
+                        clipBehavior: Clip
+                            .antiAliasWithSaveLayer,
+                        shape:
+                        RoundedRectangleBorder(
+                          borderRadius:
+                          BorderRadius
+                              .circular(
+                              20.0),
+                        ),
+                        elevation: 0,
+                        child: Center(
+                          child:
+                          Container(
+                            margin:
+                            EdgeInsets
+                                .all(
+                                8),
+                            padding:
+                            EdgeInsets
+                                .all(
+                                8),
+                            height: 50,
+                            width: 60,
+                            child: SvgPicture
+                                .asset(
+                                "assets/icons/loans.svg"),
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        width: 20,
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          CommonText(
+                              text:
+                              "Get a Loan ",
+                              textColor:
+                              Constants()
+                                  .mainColor,
+                              fontSize:
+                              22),
+                          CommonText(
+                            text:
+                            "Give yourself a financial protection",
+                            textColor:
+                            Constants()
+                                .mainColor,
+                          )
+                        ],
+                      ),
+                      Spacer(),
+                      Icon(Icons
+                          .arrow_forward_ios_rounded)
+                    ],
+                  )
+                ],
+              ),
+            ),
+            SizedBox(height: 20,),
+            InkWell(
+              onTap: (){
+                Get.to(CustomerCreditCardVerificationView());
+              },
+              child: Column(
+                children: [
+                  Row(
+                    children: [
+                      CommonText(
+                          text:
+                          "Credit Card",
+                          textColor:
+                          Constants()
+                              .mainColor),
+                      SizedBox(
+                        width: 5,
+                      ),
+                      Expanded(
+                        child: Container(
+                          width: MediaQuery.of(
+                              Get.context)
+                              .size
+                              .width -
+                              100,
+                          height: 2,
+                          color: Constants()
+                              .mainColor,
+                        ),
+                      ),
+                      SizedBox(
+                        height: 5,
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Row(
+                    mainAxisAlignment:
+                    MainAxisAlignment
+                        .spaceBetween,
+                    children: [
+                      Card(
+                        color: Constants()
+                            .mainColor,
+                        clipBehavior: Clip
+                            .antiAliasWithSaveLayer,
+                        shape:
+                        RoundedRectangleBorder(
+                          borderRadius:
+                          BorderRadius
+                              .circular(
+                              20.0),
+                        ),
+                        elevation: 0,
+                        child: Center(
+                          child:
+                          Container(
+                            margin:
+                            EdgeInsets
+                                .all(
+                                8),
+                            padding:
+                            EdgeInsets
+                                .all(
+                                8),
+                            height: 50,
+                            width: 60,
+                            child: SvgPicture
+                                .asset(
+                                "assets/icons/card.svg"),
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        width: 20,
+                      ),
+                      Column(
+                        children: [
+                          CommonText(
+                              text:
+                              "Get a Extra Credit Line",
+                              textColor:
+                              Constants()
+                                  .mainColor,
+                              fontSize:
+                              22),
+                          CommonText(
+                            text:
+                            "Give yourSelf a financial protection",
+                            textColor:
+                            Constants()
+                                .mainColor,
+                          )
+                        ],
+                      ),
+                      Spacer(),
+                      Icon(Icons
+                          .arrow_forward_ios_rounded)
+                    ],
+                  )
+                ],
+              ),
+            ),
+
+          ],
+        ),
+      ));
 }
 

@@ -137,10 +137,10 @@ class RegisterController extends GetxController{
   Future<void> addUserDetails() async {
 
     FirebaseFirestore.instance.collection(Constants().userDetailsCollectionName).doc(phoneNo).set(  {
-      "name" : name,
-      "email" : email,
-      "phone_number" : phoneNo,
-      "dob" : dob,
+      "advisor_name" : name,
+      "advisor_email" : email,
+      "advisor_phone_number" : phoneNo,
+      "advisor_dob" : dob,
       "refered_By":referalCode,
     });
 

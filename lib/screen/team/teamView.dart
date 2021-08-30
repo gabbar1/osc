@@ -1,8 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:upen/commonWidget/commonWidget.dart';
 import 'package:upen/screen/helper/constant.dart';
+import 'package:upen/screen/team/team_controller.dart';
 
-class MyTeamView extends StatelessWidget {
+class MyTeamView extends StatefulWidget {
+  @override
+  _MyTeamViewState createState() => _MyTeamViewState();
+}
+
+class _MyTeamViewState extends State<MyTeamView> {
+  TeamController teamController = Get.put(TeamController());
+  @override
+  void initState() {
+    // TODO: implement initState
+    teamController.getLead();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,30 +38,46 @@ class MyTeamView extends StatelessWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            CommonText(
-                                text: "₹ ${"0"}",
-                                textColor: Constants().mainColor),
-                            CommonText(
-                                text: "Earning of This Month",
-                                textColor: Constants().mainColor)
-                          ],
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width / 3,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Obx(() => CommonText(
+                                  text:
+                                      "₹ ${teamController.getThisMonthEarning}",
+                                  textColor: Constants().mainColor)),
+                              SizedBox(
+                                height: 5,
+                              ),
+                              CommonText(
+                                  text: "This Month",
+                                  textColor: Constants().mainColor)
+                            ],
+                          ),
                         ),
                         VerticalDivider(
                           color: Constants().mainColor,
                         ),
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            CommonText(
-                                text: "₹ ${"0"}",
-                                textColor: Constants().mainColor),
-                            CommonText(
-                                text: "Earning of This Month",
-                                textColor: Constants().mainColor)
-                          ],
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width / 3,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Obx(
+                                () => CommonText(
+                                    text:
+                                        "₹ ${teamController.getThisTotalEarning}",
+                                    textColor: Constants().mainColor),
+                              ),
+                              SizedBox(
+                                height: 5,
+                              ),
+                              CommonText(
+                                  text: "Total Earnings",
+                                  textColor: Constants().mainColor)
+                            ],
+                          ),
                         ),
                       ],
                     ),
@@ -57,8 +88,12 @@ class MyTeamView extends StatelessWidget {
             Container(
               padding: EdgeInsets.only(left: 20, right: 20),
               height: MediaQuery.of(context).size.height,
-              child: ListView.builder(
-                  itemCount: 25,
+              child: Obx(()=> teamController.getTeamList.isEmpty ?Center(
+              child: CircularProgressIndicator(
+    valueColor: new AlwaysStoppedAnimation<Color>(Colors.amber),
+    ),
+    ):ListView.builder(
+                  itemCount: teamController.getTeamList.length,
                   itemBuilder: (BuildContext context, index) {
                     return Container(
                       height: 100,
@@ -75,16 +110,20 @@ class MyTeamView extends StatelessWidget {
                                     height: 50,
                                     width: 50,
                                     imagePathAPI:
-                                        "https://i.pinimg.com/originals/0b/c3/ad/0bc3ad38b427beb0d8ff38af962aa070.png"),
+                                    "https://i.pinimg.com/originals/0b/c3/ad/0bc3ad38b427beb0d8ff38af962aa070.png"),
                               ),
-                              SizedBox(width: 20,),
-                              CommonText(text: "Abhishek Mishra",textColor: Constants().mainColor)
+                              SizedBox(
+                                width: 20,
+                              ),
+                              CommonText(
+                                  text: teamController.getTeamList[index],
+                                  textColor: Constants().mainColor)
                             ],
                           ),
                         ),
                       ),
                     );
-                  }),
+                  })),
             )
           ],
         ),

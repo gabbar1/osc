@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:upen/screen/CustomerVerification/customerVerificationController.dart';
 import 'package:upen/screen/helper/constant.dart';
 
 class DatePicker extends StatefulWidget {
   String labelText="Date of Birth";
+  final dateController = TextEditingController();
   DatePicker({ this.labelText});
 
   @override
@@ -10,12 +12,13 @@ class DatePicker extends StatefulWidget {
 }
 
 class _DatePickerState extends State<DatePicker> {
-  final dateController = TextEditingController();
+
+  CustomerVerificationController customerVerificationController = CustomerVerificationController();
 
   @override
   void dispose() {
     // Clean up the controller when the widget is removed
-    dateController.dispose();
+    widget.dateController.dispose();
     super.dispose();
   }
 
@@ -23,8 +26,7 @@ class _DatePickerState extends State<DatePicker> {
   Widget build(BuildContext context) {
     return  TextFormField(
       validator: (value) {
-        print("---------------Date-----------");
-        print(value);
+
         if (value.toString().isEmpty) {
          return "Field Required";
         }
@@ -32,7 +34,7 @@ class _DatePickerState extends State<DatePicker> {
       },
         style: TextStyle(color: Constants().mainColor),
         readOnly: true,
-        controller: dateController,
+        controller: widget.dateController,
         decoration: InputDecoration(
           labelText: widget.labelText,
           border: new OutlineInputBorder(
@@ -49,7 +51,14 @@ class _DatePickerState extends State<DatePicker> {
               initialDate:DateTime.now(),
               firstDate:DateTime(1900),
               lastDate: DateTime(2100));
-          dateController.text = date.toString().substring(0,10);
+          widget.dateController.text = date.toString().substring(0,10);
+          setState(() {
+           // customerVerificationController.odbController.text =  date.toString().substring(0,10);
+            customerVerificationController.setDob(date.toString().substring(0,10));
+            print("---------------Datesssss-----------");
+          //  print(customerVerificationController.odbController.text);
+          });
+
         },);
   }
 }

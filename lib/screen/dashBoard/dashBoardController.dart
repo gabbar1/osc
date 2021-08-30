@@ -24,7 +24,8 @@ class DashBoardController extends GetxController{
   }
 
   Future<void> getBannerList()async{
-    banners.clear();
+    banners.value.clear();
+    getBanners.clear();
       try {
 
         FirebaseFirestore.instance
