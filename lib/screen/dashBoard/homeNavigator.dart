@@ -7,6 +7,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:upen/commonWidget/commonWidget.dart';
 
 import 'package:upen/screen/helper/constant.dart';
+import 'package:upen/screen/products/productsView.dart';
 import 'package:upen/screen/profile/profilePage.dart';
 import 'package:upen/screen/register/registerPage.dart';
 import 'package:upen/screen/updateScreen/forceUpdate.dart';
@@ -24,10 +25,10 @@ Widget callPage(int currentIdex){
   switch(currentIdex){
 
     case 0 : return DashBoardView();
-    case 1:return  RegisterPageView();
+    case 1:return  ProductsView(isHide: true,);
     case 2:return  RegisterPageView();
     case 3:return  EarningScreen();
-    case 4:return  ProfileScreen();
+    case 4:return  ProfileScreen(isHide: true,);
 
     case 0 :
 

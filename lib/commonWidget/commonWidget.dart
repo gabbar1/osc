@@ -11,6 +11,8 @@ import 'package:intl/intl.dart';
 import 'package:upen/screen/CustomerVerification/customerVerificationView.dart';
 import 'package:upen/screen/customerCrediCardVerification/customerCreditCardVerification.dart';
 import 'package:upen/screen/helper/constant.dart';
+import 'package:upen/screen/profile/personalDetails/personalDetailController.dart';
+import 'package:upen/screen/profile/profilePage.dart';
 import 'package:upen/screen/startPage/startPage.dart';
 import 'package:upen/test/testView.dart';
 import 'dateTimePickerFromTextField.dart';
@@ -336,6 +338,8 @@ Widget CommonButton({
 }
 
 Widget AppDrawer() {
+  PersonalDetailsController _personalDetailsController = Get.put(PersonalDetailsController());
+  _personalDetailsController.personalDetails();
   return Drawer(
     child: Column(
       // Important: Remove any padding from the ListView.
@@ -345,12 +349,32 @@ Widget AppDrawer() {
           decoration: BoxDecoration(
             color: Constants().mainColor,
           ),
-          child: Row(
+          child: InkWell(onTap: (){
+            Get.to(ProfileScreen(isHide: false,));
+          },child: Row(
             children: [
               CircleAvatar(
                 backgroundColor: Colors.black45,
                 radius: 35,
-                child: Icon(Icons.camera_alt_outlined),
+                child: _personalDetailsController.getDocumentUrl.isBlank ?Icon(Icons.camera_alt_outlined):Container(
+
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                  ),
+                  child: Obx(()=>CachedNetworkImage(
+                    imageUrl: _personalDetailsController.getDocumentUrl,
+                    imageBuilder: (context, imageProvider) => Container(
+                      decoration: BoxDecoration(
+                        borderRadius:
+                        BorderRadius.all(Radius.circular(50)),
+                        image: DecorationImage(
+                          image: imageProvider,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    ),
+                  )),
+                ),
               ),
               SizedBox(
                 width: 10,
@@ -359,13 +383,14 @@ Widget AppDrawer() {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  CommonText(text: "Name"),
-                  CommonText(text: "phone"),
-                  CommonText(text: "email"),
+                  Obx(()=> CommonText(text: _personalDetailsController.getNameController.text)),
+                  Obx(()=> CommonText(text: _personalDetailsController.getPhoneController.text)),
+                  Obx(()=> CommonText(text: _personalDetailsController.getEmailController.text)),
+
                 ],
               )
             ],
-          ),
+          ),),
         ),
         InkWell(
           child: Row(

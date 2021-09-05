@@ -5,10 +5,12 @@ import 'package:upen/commonWidget/commonWidget.dart';
 import 'package:upen/screen/helper/constant.dart';
 
 class ProductsView extends StatelessWidget {
+  bool isHide;
+  ProductsView({this.isHide});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
+      appBar:isHide ? null: AppBar(
         centerTitle: true,
         title: CommonText(
           text: "Products",

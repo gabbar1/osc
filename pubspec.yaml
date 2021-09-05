@@ -32,9 +32,9 @@ dependencies:
   flutter_svg: ^0.22.0
   flutter_swiper: ^1.1.6
   cached_network_image: ^3.0.0
-  image_picker: ^0.8.2
   shared_preferences: ^2.0.6
-
+  image_cropper: ^1.4.1
+  image_picker: ^0.8.4
   dotted_border: ^2.0.0
   screenshot: ^0.3.0
   share: ^2.0.4
@@ -43,6 +43,8 @@ dependencies:
   readmore: ^2.1.0
   contacts_service: ^0.6.1
   permission_handler: ^6.1.1
+  firebase_storage: ^10.0.3
+
   flutter:
     sdk: flutter
 

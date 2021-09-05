@@ -1,8 +1,5 @@
 import 'dart:io';
 import 'dart:typed_data';
-
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -14,14 +11,11 @@ import 'package:path_provider/path_provider.dart';
 import 'package:screenshot/screenshot.dart';
 import 'package:share/share.dart';
 import 'package:upen/commonWidget/commonWidget.dart';
-import 'package:upen/screen/CustomerVerification/customerVerificationView.dart';
-import 'package:upen/screen/customerCrediCardVerification/customerCreditCardVerification.dart';
 import 'package:upen/screen/dashBoard/dashBoardController.dart';
 import 'package:upen/screen/helper/constant.dart';
 import 'package:upen/screen/leaderBoard/leaderBoardView.dart';
 import 'package:upen/screen/leads/LeadView.dart';
 import 'package:upen/screen/myLevel/myLevelView.dart';
-import 'package:upen/screen/notes/notesView.dart';
 import 'package:upen/screen/payout/payOutView.dart';
 import 'package:upen/screen/products/productsView.dart';
 import 'package:upen/screen/refer/referView.dart';
@@ -277,12 +271,12 @@ class _DashBoardViewState extends State<DashBoardView> {
                                     ),
                                     SizedBox(height: 5),
                                     CommonText(
-                                        text: "Idea",
+                                        text: "Training",
                                         textColor: Constants().mainColor)
                                   ],
                                 ),
                               ),
-                              InkWell(
+                              /*InkWell(
                                 onTap: () {
                                   Get.to(NotesView());
                                 },
@@ -302,7 +296,7 @@ class _DashBoardViewState extends State<DashBoardView> {
                                         textColor: Constants().mainColor)
                                   ],
                                 ),
-                              ),
+                              ),*/
                               InkWell(
                                 onTap: (){
                                   Get.to(ReferView());
@@ -478,7 +472,7 @@ class _DashBoardViewState extends State<DashBoardView> {
                                   ],
                                 ),
                               ),
-                              Column(
+                            /*  Column(
                                 children: [
                                   Container(
                                     margin: EdgeInsets.only(bottom: 5),
@@ -492,7 +486,7 @@ class _DashBoardViewState extends State<DashBoardView> {
                                       text: "My Task",
                                       textColor: Constants().mainColor)
                                 ],
-                              ),
+                              ),*/
                             ],
                           ),
                         ],
@@ -501,7 +495,7 @@ class _DashBoardViewState extends State<DashBoardView> {
             SizedBox(
               height: 10,
             ),
-            Container(
+      /*      Container(
                 height: 70,
                 margin: EdgeInsets.only(top: 5, left: 10, right: 10),
                 child: Card(
@@ -558,7 +552,7 @@ class _DashBoardViewState extends State<DashBoardView> {
                       ),
                     ),
                   )),
-            ),
+            ),*/
             Padding(
               padding: EdgeInsets.only(top: 5, left: 20, right: 20),
               child: Row(
@@ -609,7 +603,7 @@ class _DashBoardViewState extends State<DashBoardView> {
                       text: "Our Products",
                       textColor: Constants().mainColor),
                   InkWell(onTap: (){
-                    Get.to(ProductsView());
+                    Get.to(ProductsView(isHide: false,));
                   },child: CommonText(text: "View All", textColor: Colors.black))
                 ],
               ),

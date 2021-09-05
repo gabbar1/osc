@@ -8,6 +8,7 @@ class Constants{
   Color mainColor =  Color(0xFF8052d4);
 
   Color appBarColor= const Color(0xff523374);
+  Color borderColor=   Colors.grey;
   String userDetailsCollectionName = "user_details";
 
 }

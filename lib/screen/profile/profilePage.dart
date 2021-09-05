@@ -5,15 +5,24 @@ import 'package:get/get.dart';
 import 'package:upen/commonWidget/commonWidget.dart';
 import 'package:upen/screen/helper/constant.dart';
 import 'package:upen/screen/profile/personalDetails/personalDetailsPage.dart';
-import 'package:upen/screen/profile/professionalDetails/professionalDetailsPage.dart';
-
 import 'bankDetails/bankDetailsPage.dart';
-import 'educationalDetails/educationalDetailsPage.dart';
+import 'personalDetails/personalDetailController.dart';
 
-class ProfileScreen extends StatelessWidget {
+class ProfileScreen extends StatefulWidget {
+  bool isHide;
+  ProfileScreen({this.isHide});
+  @override
+  _ProfileScreenState createState() => _ProfileScreenState();
+}
+
+class _ProfileScreenState extends State<ProfileScreen> {
+
+
+  PersonalDetailsController _personalDetailsController = Get.put(PersonalDetailsController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar:widget.isHide ?null :AppBar(title: Text("Profile"),centerTitle: true),
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
@@ -21,7 +30,7 @@ class ProfileScreen extends StatelessWidget {
               height: 15,
             ),
             Padding(
-              padding: const EdgeInsets.only(left: 17.0, top: 20),
+              padding: const EdgeInsets.only(left: 20.0, top: 20,right: 20.0),
               child: Container(
                 width: MediaQuery.of(context).size.width,
                 height: MediaQuery.of(context).size.width * 0.25,
@@ -47,29 +56,30 @@ class ProfileScreen extends StatelessWidget {
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
                         ),
-                        child: CachedNetworkImage(
-                          imageUrl: 'https://picsum.photos/250?image=9',
+                        child: Obx(()=>CachedNetworkImage(
+                          imageUrl: _personalDetailsController.getDocumentUrl,
                           imageBuilder: (context, imageProvider) => Container(
                             decoration: BoxDecoration(
                               borderRadius:
-                                  BorderRadius.all(Radius.circular(50)),
+                              BorderRadius.all(Radius.circular(50)),
                               image: DecorationImage(
                                 image: imageProvider,
                                 fit: BoxFit.cover,
                               ),
                             ),
                           ),
-                        ),
+                        )),
                       ),
                       Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                          CommonText(
-                              text: "Rinkesh Singh",
+                          Obx(()=>CommonText(
+                              text: _personalDetailsController.getNameController.text,
                               textColor: Colors.black,
-                              fontSize: 16),
+                              fontSize: 25)),
                           CommonText(text: "Adviser", textColor: Colors.black),
-                          CommonText(
-                              text: "11/07/2021", textColor: Colors.black)
+                         Obx(()=> CommonText(
+                             text: _personalDetailsController.getDobController.text, textColor: Colors.black))
                         ],
                       ),
                       Container(
@@ -89,7 +99,7 @@ class ProfileScreen extends StatelessWidget {
             SizedBox(height: 20),
             Container(
               width: MediaQuery.of(context).size.width * .9,
-              height: MediaQuery.of(context).size.width,
+
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.all(Radius.circular(20)),
                   color: Colors.white,
@@ -102,10 +112,10 @@ class ProfileScreen extends StatelessWidget {
               child: Column(
                 /*itemExtent: 150,
                diameterRatio: 1.2,*/
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+
                 children: <Widget>[
                   SizedBox(
-                    height: 5,
+                    height: 40,
                   ),
                   CommonButton(
                       onPressed: () {
@@ -114,7 +124,10 @@ class ProfileScreen extends StatelessWidget {
                       vPadding: 15,
                       hPadding: 100,
                       buttonText: "Personal Details",
-                      buttonColor: Color(0xff265259)),
+                      buttonColor: Constants().mainColor),
+                  SizedBox(
+                    height: 15,
+                  ),
                   CommonButton(
                       onPressed: () {
                         Get.to(BankDetailsScreen());
@@ -124,25 +137,13 @@ class ProfileScreen extends StatelessWidget {
                       buttonText: "Bank Details",
                       buttonColor: Colors.white,
                       buttonTextColor: Constants().mainColor),
-                  CommonButton(
-                      onPressed: () {Get.to(ProfessionalDetailsScreen());},
-                      vPadding: 15,
-                      hPadding: 90,
-                      buttonText: "Professional Details",
-                      buttonColor: Colors.deepPurple.shade400),
-                  CommonButton(
-                      onPressed: () {Get.to(EducationalDetailsScreen());},
-                      vPadding: 15,
-                      hPadding: 90,
-                      buttonText: "Educational Details",
-                      buttonColor: Colors.white,
-                      buttonTextColor: Constants().mainColor),
-                  CommonButton(
-                      onPressed: () {},
-                      vPadding: 15,
-                      hPadding: 115,
-                      buttonText: "KYC Details",
-                      buttonColor: Constants().mainColor),
+                  SizedBox(
+                    height: 15,
+                  ),
+
+                  SizedBox(
+                    height: 25,
+                  ),
                 ],
               ),
             ),
@@ -163,4 +164,13 @@ class ProfileScreen extends StatelessWidget {
       ),
     );
   }
+
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    _personalDetailsController.personalDetails();
+    super.initState();
+  }
 }
+
