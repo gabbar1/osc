@@ -36,6 +36,7 @@ class _DashBoardViewState extends State<DashBoardView> {
     // TODO: implement initState
     super.initState();
     dashBoardController.getBannerList();
+    dashBoardController.getProductList();
   }
 
 
@@ -614,9 +615,9 @@ class _DashBoardViewState extends State<DashBoardView> {
             Container(
               height: MediaQuery.of(context).size.height / 4.5,
               padding: EdgeInsets.only(left: 20, right: 20),
-              child: ListView.builder(
+              child:Obx(()=> ListView.builder(
                   scrollDirection: Axis.horizontal,
-                  itemCount: 5,
+                  itemCount: dashBoardController.getProducts.length,
                   itemBuilder: (BuildContext context, index) {
                     return SizedBox(
                       width: MediaQuery.of(context).size.width - 50,
@@ -638,7 +639,7 @@ class _DashBoardViewState extends State<DashBoardView> {
                                   height: 100,
                                   width: 100,
                                   child:
-                                      SvgPicture.asset("assets/icons/loan.svg"),
+                                  SvgPicture.asset("assets/icons/loan.svg"),
                                 ),
                               ),
                               SizedBox(
@@ -650,9 +651,9 @@ class _DashBoardViewState extends State<DashBoardView> {
                                 children: [
                                   Padding(
                                     padding: const EdgeInsets.only(left: 8.0),
-                                    child: CommonText(
-                                        text: "Loan",
-                                        textColor: Constants().mainColor),
+                                    child: Obx(()=>CommonText(
+                                        text:  dashBoardController.getProducts[index].id,
+                                        textColor: Constants().mainColor)),
                                   ),
                                   SizedBox(
                                     height: 5,
@@ -710,7 +711,7 @@ class _DashBoardViewState extends State<DashBoardView> {
                         ),
                       ),
                     );
-                  }),
+                  })),
             ),
             SizedBox(
               height: 10,

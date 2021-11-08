@@ -3,6 +3,7 @@ import 'dart:convert';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
+import 'package:upen/screen/dashBoard/models/productModel.dart';
 
 import 'models/bannerModel.dart';
 
@@ -13,6 +14,9 @@ class DashBoardController extends GetxController{
   var isHide = false.obs;
   bool get getIsHide => isHide.value;
 
+ var productList = <ProductModel>[].obs;
+  List<ProductModel> get getProducts=> productList.value;
+
   setIsHide(bool val){
     isHide.value = val;
   }
@@ -22,6 +26,8 @@ class DashBoardController extends GetxController{
     this.banners.add(bannerModel);
 
   }
+
+
 
   Future<void> getBannerList()async{
     banners.value.clear();
@@ -43,4 +49,32 @@ class DashBoardController extends GetxController{
         throw exception;
       }
     }
+
+  Future<void> getProductList()async{
+    productList.value.clear();
+    try {
+
+      FirebaseFirestore.instance
+          .collection("products")
+          .get()
+          .then((QuerySnapshot querySnapshot) {
+
+        querySnapshot.docs.forEach((element) {
+          print("----------------CheckElement----------------");
+
+          ProductModel _productModel = ProductModel(id:element.id,steps: element["steps"] );
+          print(_productModel.id);
+          print(_productModel.steps);
+          setProductList(_productModel);
+        });
+      });
+    } catch (exception) {
+      throw exception;
+    }
+  }
+
+  setProductList(ProductModel val){
+    productList.value.add(val);
+    productList.refresh();
+  }
 }
