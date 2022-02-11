@@ -141,7 +141,7 @@ class _HomeNavigatorState extends State<HomeNavigator> {
               label: 'Referal',
             ),
             BottomNavigationBarItem(
-              icon:SvgPicture.asset("assets/icons/help.svg",color: _CurrentIdex == 3 ?Constants().mainColor:Colors.white,),
+              icon:SvgPicture.asset("assets/icons/profile.svg",color: _CurrentIdex == 3 ?Constants().mainColor:Colors.white,),
 
               label: 'Profile',
             ),

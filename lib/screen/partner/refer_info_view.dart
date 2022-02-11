@@ -78,15 +78,15 @@ class _ReferInfoViewState extends State<ReferInfoView> {
             shrinkWrap: true,
              itemCount: productInstructionList.length,
               itemBuilder: (context,index){
-            return InkWell(
-              onTap: (){
-                _partnerController.setCategoryIndex(index);
-              },
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
+            return Padding(
+              padding: const EdgeInsets.only(left: 10,right: 10),
+              child: InkWell(
+                onTap: (){
+                  _partnerController.setCategoryIndex(index);
+                },
                 child: Container(
 
-                  padding: EdgeInsets.only(left: 20,right: 20),
+                  padding: EdgeInsets.only(left: 20,right: 20,top: 10,bottom: 10),
                   decoration: BoxDecoration(
                       gradient: LinearGradient(
                           colors: [
@@ -98,7 +98,7 @@ class _ReferInfoViewState extends State<ReferInfoView> {
                           stops: [0.0, 2.0],
                           tileMode: TileMode.clamp),
                       color: Colors.white24,
-                      borderRadius: BorderRadius.all(Radius.circular(20))
+                      borderRadius: BorderRadius.all(Radius.circular(5))
                   ),
                   child: Center(child: CommonText(
                       text: productInstructionList[index]
