@@ -1,9 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.upen">
-    <uses-permission android:name="android.permission.READ_CONTACTS" />
-    <uses-permission android:name="android.permission.WRITE_CONTACTS" />
+    package="com.cardkarobar.crm">
+
    <application
-        android:label="upen"
+        android:label="Cardarobar - Lead Manager"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"

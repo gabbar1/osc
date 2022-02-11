@@ -3,14 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'dart:io' show Platform;
 
+import 'package:upen/screen/helper/constant.dart';
+
 
 
 showLoader(
-    {bool isLoading = false,
-    Color loaderColor =   Colors.amber}) {
+    {bool isLoading = false}) {
   Widget progressIndicator = Platform.isAndroid
       ? CircularProgressIndicator(
-          valueColor: new AlwaysStoppedAnimation<Color>(loaderColor),
+          valueColor: new AlwaysStoppedAnimation<Color>(Constants().mainColor),
         )
       : CupertinoActivityIndicator(
           radius: 14,

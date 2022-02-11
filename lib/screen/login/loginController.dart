@@ -3,66 +3,44 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:upen/commonWidget/commonWidget.dart';
+import 'package:upen/commonWidget/loader.dart';
 import 'package:upen/screen/dashBoard/homeNavigator.dart';
 import 'package:upen/screen/helper/constant.dart';
-import 'package:upen/screen/login/loginPage.dart';
-import 'package:upen/screen/register/registerPage.dart';
+import 'package:upen/screen/login/registerPage.dart';
+
+
 
 class LoginController extends GetxController {
   TextEditingController phoneController = TextEditingController();
   TextEditingController otpController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController nameController = TextEditingController();
+  TextEditingController referalCodeController = TextEditingController();
   String phoneNo, verficationId;
   bool codeSent = false;
-  bool isLogin=true;
+  bool isLogin=false;
+  var isOtp = false.obs;
+  bool get getIsOtp => isOtp.value;
+  set setIsOtp(bool val){
+    isOtp.value = val;
+    isOtp.refresh();
+  }
 
   Future<void> login({String phone}) async {
-    print("--- login called---");
     this.phoneNo = phone;
-
-    DocumentSnapshot getSpecificData = await FirebaseFirestore.instance
-        .collection('user_details')
-        .doc("+91$phone")
-        .get();
-    print("-----------------getSpecificData-------------------");
-    print(getSpecificData.data());
-    if (!getSpecificData.data().isBlank || getSpecificData.data() != null) {
-      print("Verification step");
+    try{
+      showLoader();
       verifyPhone("+91 ${phone}");
-    } else {
-      return showDialog<void>(
-        context: Get.context,
-        barrierDismissible: false, // user must tap button!
-        builder: (BuildContext context) {
-          return AlertDialog(
-            backgroundColor: Constants().mainColor,
-            title: CommonText(text: 'Information', textColor: Colors.blue),
-            content: SingleChildScrollView(
-              child: ListBody(
-                children: <Widget>[
-                  CommonText(
-                    text: 'User not found please do registration first',
-                  )
-                ],
-              ),
-            ),
-            actions: <Widget>[
-              TextButton(
-                child: CommonText(text: 'Ok', textColor: Colors.red),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-              ),
-            ],
-          );
-        },
-      );
+    }catch(e){
+      closeLoader();
+      Get.snackbar("Error", e.toString());
+      throw e;
     }
+
   }
 
   Future<void> verifyPhone(phoneNo) async {
     final PhoneVerificationCompleted verified = (AuthCredential authResult) {};
-
     final PhoneVerificationFailed verificationFailed =
         (FirebaseAuthException authException) {
       print('${authException.message}');
@@ -72,12 +50,14 @@ class LoginController extends GetxController {
     final PhoneCodeSent smsSent = (String verId, [int forceResend]) {
       this.codeSent = true;
       this.verficationId = verId;
-      Get.snackbar("title", codeSent.toString());
+
       if (codeSent) {
         print("OTP screen redirect");
-        Get.to(VerifyOtpScreen());
+        setIsOtp = true;
+        closeLoader();
+       // Get.to(VerifyOtpScreen());
       } else {
-        print("code sent false");
+       Get.snackbar("Error", "Code not sent");
       }
       //Fluttertoast.showToast(msg: verficationId.toString());
     };
@@ -91,38 +71,57 @@ class LoginController extends GetxController {
         verificationCompleted: verified,
         verificationFailed: verificationFailed,
         codeSent: smsSent,
-        codeAutoRetrievalTimeout: autoTimeout);
+        codeAutoRetrievalTimeout: autoTimeout).then((value) {
+      isLogin = true;
+    });
   }
 
 
   Future<void> loginUser({String otp,BuildContext context}) async {
     try{
-      showDialog(context: context,
-          builder: (BuildContext context) {
-            return Center(child: CircularProgressIndicator(),);
-          });
-      var result= await FirebaseAuth.instance.signInWithCredential(PhoneAuthProvider.credential(
+      showLoader();
+      FirebaseAuth.instance.signInWithCredential(PhoneAuthProvider.credential(
         verificationId: verficationId,
         smsCode: otp,
         //8160137998
-      ));
-      if(!result.additionalUserInfo.isBlank){
-        Get.offAll(HomeNavigator());
-      }else{
-        print("Message-- Error to Login");
-       // Get.snackbar("Message", result.additionalUserInfo.isBlank.toString());
-      }
-      /*if(!result.additionalUserInfo.isBlank){
-        addUserDetails();
-        Get.offAll(HomeNavigator());
-      }*/
-      /*Get.snackbar("Message", result.additionalUserInfo.isBlank.toString());*/
-      // updateDetail(context: context);
-
+      )).then((value) {
+        closeLoader();
+        if(value.additionalUserInfo.isNewUser) {
+          Get.offAll(RegsiterView());
+          }
+          else{
+          Get.offAll(HomeNavigator());
+          }
+      });
     } on Exception catch(e){
-      Get.snackbar("Erro", e.toString());
+      closeLoader();
+      Get.snackbar("Error", e.toString());
       otp=null;
     }
-
   }
+
+
+  Future<void> register({String name,email,phone,dob,referalCode})async{
+    showLoader();
+    try{
+      FirebaseFirestore.instance.collection(Constants().userDetailsCollectionName).doc(phone).set(  {
+        "advisor_name" : name,
+        "advisor_email" : email,
+        "advisor_phone_number" : phoneNo,
+        "advisor_dob" : dob,
+        "refered_By":referalCode,
+        "isEnabled":false,
+        'total_wallet':"0",
+        'current_wallet':"0"
+      }).then((value) {
+        closeLoader();
+        Get.offAll(HomeNavigator());
+      });
+    }catch(e){
+      closeLoader();
+      Get.snackbar("Error", e.toString());
+      throw e;
+    }
+  }
+
 }

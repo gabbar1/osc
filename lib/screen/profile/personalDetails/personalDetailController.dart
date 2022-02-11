@@ -1,3 +1,4 @@
+
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -12,10 +13,11 @@ import 'personalDetailModel.dart';
 import 'package:firebase_core/firebase_core.dart' as firebase_core;
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'dart:io' as io;
-
 enum SingingCharacter { a,b }
+enum StatusCharacter {a,b,c,d,e,f }
+enum LeadCharacter { a,b,c,d,e }
+enum SearchByValue { a,b }
 class PersonalDetailsController extends GetxController{
-
   var nameController = TextEditingController().obs;
   TextEditingController get getNameController => nameController.value;
   var phoneController = TextEditingController().obs;
@@ -40,11 +42,20 @@ class PersonalDetailsController extends GetxController{
   String get getReferedBy => referedBy.value;
   var occupationType = SingingCharacter.a.obs;
   SingingCharacter get getOccupationType => occupationType.value;
-  var wallet = "".obs;
-  String get getWallet => wallet.value;
+  var currentWallet = "".obs;
+  String get getCurrentWallet => currentWallet.value;
+  var totalWallet = "".obs;
+  String get getTotalWallet => totalWallet.value;
+
+  var isAdmin = false.obs;
+  var isEnable = false.obs;
+  bool get getIsAdmin => isAdmin.value;
+  bool get getIsEnable => isEnable.value;
+
 
 
   var userDetailModel = UserDetailModel().obs;
+
   UserDetailModel get getUserDetail => userDetailModel.value;
   var documentUrl = "".obs;
   String get getDocumentUrl => documentUrl.value;
@@ -63,8 +74,14 @@ class PersonalDetailsController extends GetxController{
     occupationType.value = val.advisorOccupation == "Job"? SingingCharacter.a :SingingCharacter.b;
     referedBy.value = val.referedBy;
     documentUrl.value = val.advisorUrl;
-    wallet.value = val.wallet;
-    wallet.refresh();
+    currentWallet.value = val.current_wallet;
+    totalWallet.value = val.total_wallet;
+    isAdmin.value = val.isAdmin;
+    isAdmin.refresh();
+    isEnable.value = val.isEnabled;
+    isEnable.refresh();
+    currentWallet.refresh();
+    totalWallet.refresh();
     documentUrl.refresh();
     nameController.refresh();
     phoneController.refresh();
@@ -77,9 +94,7 @@ class PersonalDetailsController extends GetxController{
     pincodeController.refresh();
     occupationController.refresh();
     userDetailModel.refresh();
-   print( getUserDetail.advisorEmail);
-   print("--------------------------");
-   print( getUserDetail.advisorUrl);
+
   }
   Future<void> personalDetails() async{
 
@@ -109,7 +124,7 @@ class PersonalDetailsController extends GetxController{
 
 
 
-  Future<firebase_storage.UploadTask> uploadFile(File file) async {
+  Future<firebase_storage.UploadTask> uploadFile( file) async {
     if (file == null) {
       ScaffoldMessenger.of(Get.context).showSnackBar(const SnackBar(
         content: Text('No file was selected'),
@@ -127,10 +142,10 @@ class PersonalDetailsController extends GetxController{
 
     final metadata = firebase_storage.SettableMetadata(
         contentType: 'image/jpeg',
-        customMetadata: {'picked-file-path': file.path});
+        customMetadata: {'picked-file-path': file});
 
 
-    uploadTask = ref.putFile(io.File(file.path), metadata);
+    uploadTask = ref.putFile(io.File(file), metadata);
     _downloadLink(uploadTask.snapshot.ref);
 
     return Future.value(uploadTask);
@@ -159,7 +174,8 @@ class PersonalDetailsController extends GetxController{
             advisorPincode: int.parse( getPincodeController.text),
             advisorState: getStateController.text,
             referedBy:getReferedBy,
-            advisorUrl:link );
+            advisorUrl:link,
+            isAdmin: getIsAdmin);
         updatePersonalDetails(userDetailModel);
 
         
@@ -173,9 +189,9 @@ class PersonalDetailsController extends GetxController{
   }
 
 
-  var filePath = File("").obs;
-  File get getFilePath => filePath.value;
-  setFilePath(File val){
+  var filePath = ("").obs;
+   get getFilePath => filePath.value;
+  setFilePath( val){
     filePath.value =val;
     filePath.refresh();
   }

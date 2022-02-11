@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:upen/service/authservice.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 
 class ForceUpdateView extends StatelessWidget {
@@ -44,7 +45,7 @@ class ForceUpdateView extends StatelessWidget {
                   Text(
                     (maintenance == "0")
                         ? "We have added lots of new features and improved our existing app to make your experience better and smooth as possible."
-                        : "We appreciate your patience for our maintenance work. We will be back soon.\nRegards,\nGGATE Team.",
+                        : "We appreciate your patience for our maintenance work. We will be back soon.\nRegards,\Cardkarobar Team.",
                     textAlign: TextAlign.center,
                     style: TextStyle(fontSize: 15.0),
                   ),
@@ -57,7 +58,8 @@ class ForceUpdateView extends StatelessWidget {
                       GestureDetector(
                         onTap: () {
 
-
+                          launch("https://play.google.com/store/apps/details?id=com.cardkarobar.crm");
+                         // OpenAppstore.launch(androidAppId: "com.facebook.katana&hl=ko", iOSAppId: "284882215")
                         },
                         child: Container(
                           padding: EdgeInsets.symmetric(

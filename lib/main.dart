@@ -3,25 +3,30 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:upen/sharedPreference/sharedPreferenceyData.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'screen/helper/constant.dart';
 import 'screen/updateScreen/forceUpdate.dart';
 import 'service/authservice.dart';
 import 'package:get/get.dart';
 
-
-Future<void> main() async{
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
 
-  await SharedPreferenceUser.init();
-  runApp(
-      GetMaterialApp(
-        debugShowCheckedModeBanner: false,
-
-        theme: ThemeData(primaryColor: Constants().mainColor,appBarTheme: AppBarTheme(backgroundColor: Constants().mainColor)),
-        home: MyApp(),));
+  runApp(GetMaterialApp(
+    debugShowCheckedModeBanner: false,
+    theme: ThemeData(
+      unselectedWidgetColor:Colors.white,
+      scaffoldBackgroundColor: Constants().appBackGroundColor,
+      backgroundColor:Constants().appBackGroundColor ,
+      primaryColor: Constants().appBackGroundColor,
+      appBarTheme: AppBarTheme(backgroundColor: Constants().appBackGroundColor),
+      textTheme: GoogleFonts.latoTextTheme(),
+    ),
+    home: MyApp(),
+  ));
 }
+
 
 class MyApp extends StatefulWidget {
   @override
@@ -29,10 +34,11 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-
-  FirebaseMessaging firebaseMessaging ;
-  FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
-  static Future<dynamic> backgroundMessageHandler(Map<String, dynamic> message) {
+  FirebaseMessaging firebaseMessaging;
+  FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+      FlutterLocalNotificationsPlugin();
+  static Future<dynamic> backgroundMessageHandler(
+      Map<String, dynamic> message) {
     print("_backgroundMessageHandler");
     if (message.containsKey('data')) {
       // Handle data message
@@ -46,21 +52,34 @@ class _MyAppState extends State<MyApp> {
       print("_backgroundMessageHandler notification: ${notification}");
     }
   }
-  var version = "1";
+
+  var version = "2";
   @override
   void initState() {
     super.initState();
     print("_____________checkVersion-----------------");
-    FirebaseFirestore.instance.collection("version").get().then((QuerySnapshot querySnapshot) {
+    FirebaseFirestore.instance
+        .collection("version")
+        .get()
+        .then((QuerySnapshot querySnapshot) {
       querySnapshot.docs.forEach((element) {
-        print("--------------Version---------------");
-        print(element['version']);
-        if(version == element["version"].toString()){
+
+        if (version == element["version"].toString()) {
           print("--------latestVersion----------");
-          Navigator.push(context, MaterialPageRoute(builder: (context) =>AuthService().handleAuth() ));
+          Get.offAll(AuthService().handleAuth());
+          /*Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => AuthService().handleAuth()));*/
           // return AuthService().handleAuth();
-        } else{
-          Navigator.push(context, MaterialPageRoute(builder: (context) =>ForceUpdateView(element["update"].toString(), element['force'].toString(), element['maintance'].toString()) ));
+        } else {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => ForceUpdateView(
+                      element["update"].toString(),
+                      element['force'].toString(),
+                      element['maintance'].toString())));
         }
       });
     });
@@ -73,18 +92,17 @@ class _MyAppState extends State<MyApp> {
       RemoteNotification notification = message.notification;
       AndroidNotification android = message.notification?.android;
       if (notification != null && android != null) {
-
-      } else{
-        print( android.channelId);
+      } else {
+        print(android.channelId);
       }
     });
     FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
       print('A new onMessageOpenedApp event was published!');
-
     });
   }
-  showNotification({var title,body}) async {
-    print("0000000000000000"+title.toString());
+
+  showNotification({var title, body}) async {
+    print("0000000000000000" + title.toString());
     var android = new AndroidNotificationDetails(
       'sdffds dsffds',
       "CHANNLE NAME",
@@ -92,15 +110,18 @@ class _MyAppState extends State<MyApp> {
     );
     var iOS = new IOSNotificationDetails();
     var platform = new NotificationDetails(android: android, iOS: iOS);
-    await flutterLocalNotificationsPlugin.show(
-        0, title, body, platform);
+    await flutterLocalNotificationsPlugin.show(0, title, body, platform);
   }
 
   @override
   Widget build(BuildContext context) {
-
-    return  Scaffold(body: Container(height: MediaQuery.of(context).size.height,width: MediaQuery.of(context).size.width,color: Constants().mainColor,),);
+    return Scaffold(
+      body: Container(
+        height: MediaQuery.of(context).size.height,
+        width: MediaQuery.of(context).size.width,
+        color: Constants().appBackGroundColor,
+        child: Image.asset("assets/icons/icon.png"),
+      ),
+    );
   }
 }
-
-

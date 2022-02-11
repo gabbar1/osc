@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -33,26 +34,20 @@ class _ProfileScreenState extends State<ProfileScreen> {
               padding: const EdgeInsets.only(left: 20.0, top: 20,right: 20.0),
               child: Container(
                 width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.width * 0.25,
                 decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(20)),
-                    color: Colors.white,
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.grey,
-                        blurRadius: 10,
-                      ),
-                    ]),
+                    borderRadius: BorderRadius.all(Radius.circular(5)),
+                    color: Constants().inactiveColor,
+                   ),
                 alignment: Alignment.topCenter,
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 18.0),
+                  padding: const EdgeInsets.only(left: 20,top: 20,bottom: 20),
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                   // mainAxisAlignment: MainAxisAlignment.spaceAround,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       Container(
-                        width: 50,
-                        height: 50,
+                        width: 70,
+                        height: 70,
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
                         ),
@@ -61,7 +56,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           imageBuilder: (context, imageProvider) => Container(
                             decoration: BoxDecoration(
                               borderRadius:
-                              BorderRadius.all(Radius.circular(50)),
+                              BorderRadius.all(Radius.circular(5)),
                               image: DecorationImage(
                                 image: imageProvider,
                                 fit: BoxFit.cover,
@@ -70,19 +65,20 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           ),
                         )),
                       ),
+                      SizedBox(width: 20,),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
                           Obx(()=>CommonText(
                               text: _personalDetailsController.getNameController.text,
-                              textColor: Colors.black,
+                              textColor: Colors.white,
                               fontSize: 25)),
-                          CommonText(text: "Adviser", textColor: Colors.black),
+                          CommonText(text: "Adviser", textColor: Colors.white),
                          Obx(()=> CommonText(
-                             text: _personalDetailsController.getDobController.text, textColor: Colors.black))
+                             text: _personalDetailsController.getDobController.text, textColor: Colors.white))
                         ],
                       ),
-                      Container(
+                     /* Container(
                         width: 100,
                         height: 20,
                         decoration: BoxDecoration(
@@ -90,7 +86,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           borderRadius: BorderRadius.circular(20.0),
                         ),
                         child: Center(child: Text("Unverified")),
-                      ),
+                      ),*/
                     ],
                   ),
                 ),
@@ -101,14 +97,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
               width: MediaQuery.of(context).size.width * .9,
 
               decoration: BoxDecoration(
-                  borderRadius: BorderRadius.all(Radius.circular(20)),
-                  color: Colors.white,
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey,
-                      blurRadius: 10,
-                    ),
-                  ]),
+                  borderRadius: BorderRadius.all(Radius.circular(5)),
+                  color: Constants().inactiveColor,
+                  ),
               child: Column(
                 /*itemExtent: 150,
                diameterRatio: 1.2,*/
@@ -151,7 +142,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
               height: 30,
             ),
             ElevatedButton(
-                onPressed: () {},
+                onPressed: () async{
+                  await FirebaseAuth.instance.signOut();
+                },
                 style: ButtonStyle(
                   backgroundColor: MaterialStateProperty.all(Colors.red),
                 ),

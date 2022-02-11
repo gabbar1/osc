@@ -7,6 +7,43 @@
   "client": [
     {
       "client_info": {
+        "mobilesdk_app_id": "1:636466031264:android:a46973a85d3bcfc32677c5",
+        "android_client_info": {
+          "package_name": "com.cardkarobar.crm"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "636466031264-468geuj080cpcqsl2ki8k12r3i9ksr3s.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.cardkarobar.crm",
+            "certificate_hash": "ebf573cce432efea3a49cf3effb8183616924076"
+          }
+        },
+        {
+          "client_id": "636466031264-bna3ekq0qous5m8f0s344d808vh037kd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAIZuKn5XuqrTmUvm0qhGrmozBY23FBQw4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "636466031264-bna3ekq0qous5m8f0s344d808vh037kd.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
         "mobilesdk_app_id": "1:636466031264:android:c32b77e1592b1ff82677c5",
         "android_client_info": {
           "package_name": "com.example.upen"
@@ -19,6 +56,14 @@
           "android_info": {
             "package_name": "com.example.upen",
             "certificate_hash": "1576a9f5f2f4e56cfb7dc9377978c8e0b583dc81"
+          }
+        },
+        {
+          "client_id": "636466031264-jcahck6uq7mgnp7jsijltq3dkc2lfnvi.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.upen",
+            "certificate_hash": "ebf573cce432efea3a49cf3effb8183616924076"
           }
         },
         {

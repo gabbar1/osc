@@ -12,7 +12,10 @@ class UserDetailModel {
   int advisorPincode;
   String advisorOccupation;
   String advisorUrl;
-  String wallet;
+  String total_wallet;
+  String current_wallet;
+  bool isAdmin;
+  bool isEnabled;
 
   UserDetailModel(
       {this.advisor,
@@ -28,7 +31,10 @@ class UserDetailModel {
         this.advisorPincode,
         this.advisorOccupation,
         this.advisorUrl,
-        this.wallet});
+        this.total_wallet,
+        this.current_wallet,
+        this.isEnabled,
+      this.isAdmin});
 
   UserDetailModel.fromJson(Map<String, dynamic> json) {
     advisor = json['advisor'];
@@ -44,9 +50,13 @@ class UserDetailModel {
     advisorPincode = json['advisor_pincode'];
     advisorOccupation = json['advisor_occupation'];
     advisorUrl = json['advisor_Url'];
-    wallet = json['wallet'];
+    total_wallet = json['total_wallet'];
+    current_wallet = json['current_wallet'];
+    isAdmin = json['isAdmin'];
+     isEnabled = json['isEnabled'];
 
   }
+
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
@@ -63,7 +73,10 @@ class UserDetailModel {
     data['advisor_pincode'] = this.advisorPincode;
     data['advisor_occupation'] = this.advisorOccupation;
     data['advisor_Url'] = this.advisorUrl;
-    data['wallet'] = this.wallet;
+    data['total_wallet'] = this.total_wallet;
+    data['current_wallet'] = this.current_wallet;
+    data['isAdmin'] = this.isAdmin;
+    data['isEnabled'] = this.isEnabled;
 
     return data;
   }

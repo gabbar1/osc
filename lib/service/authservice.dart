@@ -1,8 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:upen/screen/dashBoard/dashBoard.dart';
 import 'package:upen/screen/dashBoard/homeNavigator.dart';
-import 'package:upen/screen/startPage/startPage.dart';
+import '../screen/login/loginPage.dart';
 
 
 
@@ -16,7 +15,7 @@ class AuthService extends ChangeNotifier {
         if(spanshot.hasData){
           return HomeNavigator();
         } else {
-          return StartPage();
+          return LoginView();
         }
 
       }

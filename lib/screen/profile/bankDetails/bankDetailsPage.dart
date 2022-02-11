@@ -26,40 +26,42 @@ class _BankDetailsScreenState extends State<BankDetailsScreen> {
       ),
       body: Container(
         padding: EdgeInsets.only(left: 30.0, right: 30.0, bottom: 15.0, top: 20),
-        color: Colors.white70,
+
         child: ListView(
           children: [
             Obx(()=>CommonTextInput(
               inputController: _detailsController.getBankNameController,
               textInputAction: TextInputAction.next,
               labeltext: "Bank Name",
+              hint: "Enter Bank Name"
             )),
             Obx(()=> CommonTextInput(
               inputController: _detailsController.getNameController,
               textInputAction: TextInputAction.next,
               labeltext: "Name as per bank record",
+              hint: "Enter Your Name"
             )),
             Obx(()=>CommonTextInput(
               inputController: _detailsController.getAccountNumberController,
               textInputAction: TextInputAction.next,
               labeltext: "Account Number",
               textInputType: TextInputType.phone,
+              hint: "Enter Account Number"
             )),
             Obx(()=>CommonTextInput(
               inputController: _detailsController.getIFSCController,
               textInputAction: TextInputAction.next,
               labeltext: "IFSC Code",
+              hint: "Enter IFSC Code"
             )),
             Padding(
-              padding: const EdgeInsets.only(top: 20),
+              padding: const EdgeInsets.only(left: 5,top: 20),
               child: CommonText(
                   text: "Upload cancelled cheque or passbook",
-                  textColor: Constants().mainColor),
+                  fontSize: 18
+                  ),
             ),
-            Obx(()=>CommonTextInput(
-              inputController: _detailsController.getDocTypeController,
-              labeltext: "Enter Document Type",
-            )),
+
             SizedBox(
               height: 20,
             ),
@@ -76,7 +78,7 @@ class _BankDetailsScreenState extends State<BankDetailsScreen> {
                   image: DecorationImage(image:NetworkImage(_detailsController.getDocumentUrl),fit: BoxFit.fill),
                   border: Border.all(),
                   color: Colors.grey.withOpacity(0.15),
-                  borderRadius: BorderRadius.circular(30),
+                  borderRadius: BorderRadius.circular(5),
                 ),
                 child: Icon(Icons.camera_alt,size: 60,color: Colors.grey),
               ):Container(
@@ -86,7 +88,7 @@ class _BankDetailsScreenState extends State<BankDetailsScreen> {
                   image: DecorationImage(image:FileImage(_detailsController.getFilePath),fit: BoxFit.fill),
                   border: Border.all(),
                   color: Colors.grey.withOpacity(0.15),
-                  borderRadius: BorderRadius.circular(30),
+                  borderRadius: BorderRadius.circular(5),
                 ),
                 child: Icon(Icons.camera_alt,size: 60,color: Colors.grey),
               )),

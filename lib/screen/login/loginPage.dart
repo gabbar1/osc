@@ -1,82 +1,255 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:upen/commonWidget/commonWidget.dart';
 import 'package:upen/screen/helper/constant.dart';
-import 'package:upen/screen/login/loginController.dart';
+import 'package:delayed_display/delayed_display.dart';
+import '../../commonWidget/loader.dart';
+import 'loginController.dart';
+class LoginView extends StatelessWidget {
 
-class LoginPageView extends StatelessWidget {
   LoginController loginController = Get.put(LoginController());
 
   GlobalKey<FormState> loginFormKey = new GlobalKey<FormState>();
+  GlobalKey<FormState> otpFormKey = new GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Login"),
-        centerTitle: true,
-      ),
-      body: Center(
-        child: Container(
-          width: MediaQuery.of(context).size.width * .9,
-          height: MediaQuery.of(context).size.width * .8,
-          decoration: BoxDecoration(color: Colors.white, boxShadow: [
-            BoxShadow(
-              color: Colors.grey,
-              blurRadius: 10,
-            ),
-          ]),
-          child: Form(
-            key: loginFormKey,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text("Enter Mobile Number to Login"),
-                SizedBox(
-                  height: 15,
+      body: Stack(
+        children: [
+          Image.asset("assets/icons/background.png",fit: BoxFit.cover,),
+          Obx(()=> loginController.getIsOtp ? DelayedDisplay(
+            delay: Duration(seconds: 1),
+            child: Align(
+              alignment: Alignment.bottomCenter,
+              child: Padding(
+                padding: const EdgeInsets.only(left: 25,right: 25,bottom: 80),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: <Widget>[
+                    Text(
+                      "Enter Otp",
+                      style: TextStyle(
+                        color:Constants().textColor,
+                        fontSize: 28,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    Text(
+                      "Verify 6 digit Otp",
+                      style: TextStyle(
+                        color: Constants().textColor,
+                        fontSize: 12,
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 30,
+                    ),
+                    Text(
+                      "Otp",
+                      style: TextStyle(
+                        color: Constants().textColor,
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 15,
+                    ),
+                    Container(
+                      decoration: const BoxDecoration(
+                        color: Color(0xff0F1B25),
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(5.0),
+                        ),
+                      ),
+                      child:  Form(
+                        key: otpFormKey,
+                        child: TextFormField(
+                          inputFormatters: [
+                            new LengthLimitingTextInputFormatter(10),// for mobile
+                          ],
+                          keyboardType: TextInputType.phone,
+                          controller: loginController.otpController,
+                          style: TextStyle(color: Colors.white),
+                          cursorColor: Colors.white,
+                          decoration: InputDecoration(
+                            enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                  color: Colors.transparent, width: 0.0),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius:
+                              BorderRadius.all(Radius.circular(4)),
+                              borderSide: BorderSide(
+                                  width: 1, color: Colors.transparent),
+                            ),
+                            fillColor: Colors.white,
+                            focusColor: Colors.white,
+                            border: OutlineInputBorder(),
+                            /* prefixIcon: Padding(
+                            padding: EdgeInsets.all(15),
+                            child: Icon(Icons.otp)),*/
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: 25),
+                    InkWell(
+                      onTap: (){
+                        if (otpFormKey.currentState.validate()) {
+                          loginController.loginUser(
+                              context: context,
+                              otp: loginController.otpController.text);
+                        }
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 25,right: 25),
+                        child: Container(
+                            height: 50,
+                            width: MediaQuery.of(context).size.width,
+                            //width: 300,
+                            decoration: const BoxDecoration(
+                                color: Color(0xffFFFFFF),
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(5.0),
+                                )),
+                            child: Center(
+                              child: Text(
+                                "Enter",
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            )
+                        ),
+                      ),
+                    )
+                  ],
                 ),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 5.0),
-                  child: CommonTextInput(
-                      textInputType: TextInputType.phone,
-                      labeltext: "Enter Phone",
-                      inputController: loginController.phoneController,
-                      maxLength: 10,
-                      lableFontSize: 20,
-                      lableFontStyle: FontWeight.bold,
-                      lableTextColor: Constants().mainColor,
-                      regexp: r"^[0-9]{10}$",
-                      errortext: "Enter valid Mobile No"),
+              ),),
+          ):DelayedDisplay(
+            delay: Duration(seconds: 1),
+            child: Align(
+              alignment: Alignment.bottomCenter,
+              child: Padding(
+                padding: const EdgeInsets.only(left: 25,right: 25,bottom: 80),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: <Widget>[
+                    Text(
+                      "Enter Mobile Number",
+                      style: TextStyle(
+                        color:Constants().textColor,
+                        fontSize: 28,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    Text(
+                      "Login Using The verification code received on\nyour phone and it is done",
+                      style: TextStyle(
+                        color: Constants().textColor,
+                        fontSize: 12,
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 30,
+                    ),
+                    Text(
+                      "Mobile Number",
+                      style: TextStyle(
+                        color: Constants().textColor,
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 15,
+                    ),
+                    Container(
+                      decoration: const BoxDecoration(
+                        color: Color(0xff0F1B25),
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(5.0),
+                        ),
+                      ),
+                      child:  Form(
+                        key: loginFormKey,
+                        child: TextFormField(
+                          inputFormatters: [
+                            new LengthLimitingTextInputFormatter(10),// for mobile
+                          ],
+                          keyboardType: TextInputType.phone,
+                          controller: loginController.phoneController,
+                          style: TextStyle(color: Colors.white),
+                          cursorColor: Colors.white,
+                          decoration: InputDecoration(
+                            enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                  color: Colors.transparent, width: 0.0),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius:
+                              BorderRadius.all(Radius.circular(4)),
+                              borderSide: BorderSide(
+                                  width: 1, color: Colors.transparent),
+                            ),
+                            fillColor: Colors.white,
+                            focusColor: Colors.white,
+                            border: OutlineInputBorder(),
+                            prefixIcon: Padding(
+                                padding: EdgeInsets.all(15),
+                                child: Text(
+                                  '+91 ',
+                                  style: TextStyle(color: Colors.white54),
+                                )),
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: 25),
+                    InkWell(
+                      onTap: (){
+                        if (loginFormKey.currentState.validate()) {
+                          print("Validated");
+                          loginController.login(
+                            phone: loginController.phoneController.text,
+                          );
+                        }
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 25,right: 25),
+                        child: Container(
+                            height: 50,
+                            width: MediaQuery.of(context).size.width,
+                            //width: 300,
+                            decoration: const BoxDecoration(
+                                color: Color(0xffFFFFFF),
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(5.0),
+                                )),
+                            child: Center(
+                              child: Text(
+                                "Next",
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            )
+                        ),
+                      ),
+                    )
+                  ],
                 ),
-                SizedBox(
-                  height: 15,
-                ),
-                CommonButton(
-                    onPressed: () {
-                      print("-----Clicked------");
-                      if (loginFormKey.currentState.validate()) {
-                        print("Validated");
-                        loginController.login(
-                          phone: loginController.phoneController.text,
-                        );
-                      } else {
-                        print("not validated");
-                      }
-                    },
-                    context: context,
+              ),),
+          ))
 
-                    buttonText: "Login",
-                    buttonColor: Constants().mainColor,
-                    shdowColor: Colors.lightBlue,
-                    buttonTextColor: Colors.white,
-                    buttonTextSize: 18,
-                    buttonTextStyle: FontWeight.bold),
-                SizedBox(
-                  height: 10,
-                ),
-              ],
-            ),
-          ),
-        ),
+        ],
       ),
     );
   }
