@@ -193,7 +193,7 @@ class PartnerView extends StatelessWidget {
                                           text:
                                           _PartnerController.getProductCategoryList[index].categoryName,
                                           fontSize:  15,
-                                          textColor: Colors.black),
+                                          textColor: Colors.white),
                                     ],
                                   ),
                                   Switch(

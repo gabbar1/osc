@@ -7,10 +7,8 @@ import 'package:upen/commonWidget/commonWidget.dart';
 import 'package:upen/screen/helper/constant.dart';
 import 'package:upen/screen/myWork/controller/my_work_controller.dart';
 import 'package:upen/screen/profile/personalDetails/personalDetailController.dart';
-
 import 'model/contact_model.dart';
 
-//https://cardkarobar.in/referal.html?ID=8200127649&product=demat&name=upstocx
 
 class MyWork extends StatefulWidget {
   MyWork({this.status, this.isHide});
@@ -52,7 +50,6 @@ class _MyWorkState extends State<MyWork> {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       appBar: widget.isHide
           ? null
@@ -388,7 +385,7 @@ class _StatusUpdateState extends State<StatusUpdate> {
       body: Container(
         height: MediaQuery.of(context).size.height,
         decoration: BoxDecoration(
-            color: Colors.white,
+            color: Constants().appBackGroundColor,
             borderRadius: new BorderRadius.only(
                 topLeft: const Radius.circular(25.0),
                 topRight: const Radius.circular(25.0))),
@@ -400,12 +397,15 @@ class _StatusUpdateState extends State<StatusUpdate> {
               children: [
                 CommonTextInput1(
                     labeltext: "Name",
+                    hint: "Enter Name",
+                    lableTextColor: Colors.white,
                     inputController: _myWorkController.nameController),
                 SizedBox(
                   height: 10,
                 ),
                 CommonTextInput1(
                     labeltext: "Mobile",
+                    hint: "Mobile Number",
                     inputController: _myWorkController.phoneController),
                 SizedBox(
                   height: 10,
@@ -413,6 +413,7 @@ class _StatusUpdateState extends State<StatusUpdate> {
                 widget.isNewEntry
                     ? CommonTextInput1(
                         labeltext: "State",
+                        hint: "State",
                         inputController: _myWorkController.stateController)
                     : SizedBox(),
                 widget.isNewEntry
@@ -423,6 +424,7 @@ class _StatusUpdateState extends State<StatusUpdate> {
                 widget.isNewEntry
                     ? CommonTextInput1(
                         labeltext: "City",
+                        hint: "City",
                         inputController: _myWorkController.cityController)
                     : SizedBox(),
                 widget.isNewEntry
@@ -434,6 +436,7 @@ class _StatusUpdateState extends State<StatusUpdate> {
                     ? CommonTextInput1(
                         textInputType: TextInputType.number,
                         labeltext: "Zip Code",
+                        hint: "Pincode",
                         inputController: _myWorkController.zipController)
                     : SizedBox(),
                 widget.isNewEntry
@@ -444,6 +447,7 @@ class _StatusUpdateState extends State<StatusUpdate> {
                 widget.isNewEntry
                     ? CommonTextInput1(
                         labeltext: "Designation",
+                        hint: "Enter Designation",
                         inputController:
                             _myWorkController.designationController)
                     : SizedBox(),
@@ -482,7 +486,9 @@ class _StatusUpdateState extends State<StatusUpdate> {
                           'Query',
                           'Lead-Closed',
                           'Lead-Rejected',
-                          'Lead-Login'
+                          'Lead-Login',
+                          'Not-Eligible',
+                          'Using-All-Card',
                         ].map((String value) {
                           setState(() {
                             existingBank = value;
@@ -502,6 +508,10 @@ class _StatusUpdateState extends State<StatusUpdate> {
                                   _character = StatusCharacter.e;
                                 } else if (value == "Lead-Login") {
                                   _character = StatusCharacter.f;
+                                } else if (value == "Not-Eligible") {
+                                  _character = StatusCharacter.g;
+                                } else if (value == "Using-All-Card") {
+                                  _character = StatusCharacter.h;
                                 }
                               });
                             },

@@ -9,6 +9,15 @@ class LeadModel {
   String customerName;
   int customerPhone;
   String customerEmail;
+  String customerState;
+  String customerCity;
+  String customerLeadType;
+  String customerSalary;
+  String customerItr;
+  String customerCardLimit;
+  String customerHasCar;
+  String customerCibil;
+  String comment;
   String key;
 
   LeadModel(
@@ -20,7 +29,17 @@ class LeadModel {
         this.customerName,
         this.customerPhone,
         this.customerEmail,
-        this.key});
+        this.key,
+        this.comment,
+        this.customerCardLimit,
+        this.customerCibil,
+        this.customerCity,
+        this.customerHasCar,
+        this.customerItr,
+        this.customerLeadType,
+        this.customerSalary,
+        this.customerState,
+      });
 
   LeadModel.fromJson(Map<String, dynamic> json) {
     referralPrice = json['referral_price'];
@@ -31,6 +50,15 @@ class LeadModel {
     customerName = json['customer_name'];
     customerPhone = json['customer_phone'];
     customerEmail = json['customer_email'];
+    comment = json['comment'];
+    customerCardLimit = json['customerCardLimit'];
+    customerCibil = json['customerCibil'];
+    customerCity = json['customerCity'];
+    customerHasCar = json['customerHasCar'];
+    customerItr = json['customerItr'];
+    customerLeadType = json['customerLeadType'];
+    customerSalary = json['customerSalary'];
+    customerState = json['customerState'];
     key = json['key'];
   }
 
@@ -44,6 +72,15 @@ class LeadModel {
     data['customer_name'] = this.customerName;
     data['customer_phone'] = this.customerPhone;
     data['customer_email'] = this.customerEmail;
+    data['comment'] = this.comment;
+    data['customerCardLimit'] = this.customerCardLimit;
+    data['customerCibil'] = this.customerCibil;
+    data['customerCity'] = this.customerCity;
+    data['customerHasCar'] = this.customerHasCar;
+    data['customerItr'] = this.customerItr;
+    data['customerLeadType'] = this.customerLeadType;
+    data['customerSalary'] = this.customerSalary;
+    data['customerState'] = this.customerState;
     data['key'] = this.key;
     return data;
   }

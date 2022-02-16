@@ -131,7 +131,7 @@ Widget CommonTextInput1(
             border: OutlineInputBorder(),
             hintText: hint,
             hintStyle: TextStyle(
-              color: Colors.white
+              color: Colors.white38
             )
 
             /* prefixIcon: Padding(

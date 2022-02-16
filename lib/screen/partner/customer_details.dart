@@ -107,6 +107,8 @@ class ReferCustomerDetail extends StatelessWidget {
                                   _referController.getReferList[index].price
                                       .toString(),
                               fontStyle: FontWeight.w500,
+                              textColor: Colors.black,
+
                               fontSize: 18))
                     ],
                   ),

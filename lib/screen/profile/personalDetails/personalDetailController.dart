@@ -14,7 +14,7 @@ import 'package:firebase_core/firebase_core.dart' as firebase_core;
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'dart:io' as io;
 enum SingingCharacter { a,b }
-enum StatusCharacter {a,b,c,d,e,f }
+enum StatusCharacter {a,b,c,d,e,f,g,h}
 enum LeadCharacter { a,b,c,d,e }
 enum SearchByValue { a,b }
 class PersonalDetailsController extends GetxController{

@@ -723,6 +723,7 @@ class _DashBoardViewState extends State<DashBoardView> {
                             ),
                           ),
                           Image.network(_PartnerController.getProductCategoryDashBoardList[index].categoryUrl)
+
                         ],),
                       SizedBox(height: 10,),
                       Container(
